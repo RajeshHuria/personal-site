@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const IconGithub = ({ className = "h-4 w-4" }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
     <path d="M9 19c-4 1.5-4-2-6-2" />
@@ -104,9 +106,21 @@ const focusAreas = [
 ];
 
 const notes = [
-  "Why AI agents fail when they simulate execution",
-  "What actually works in a local-plus-cloud coding setup",
-  "Lessons from building a practical multi-agent system",
+  {
+    slug: "ai-agents-simulate-execution",
+    title: "Why AI agents fail when they simulate execution",
+    blurb: "Agents say they did things—but nothing actually ran.",
+  },
+  {
+    slug: "local-plus-cloud-coding-setup",
+    title: "Local + cloud coding setup",
+    blurb: "Use cloud for thinking, local for execution.",
+  },
+  {
+    slug: "practical-multi-agent-lessons",
+    title: "Multi-agent lessons",
+    blurb: "Clear roles + verification = working systems.",
+  },
 ];
 
 export default function PersonalSite() {
@@ -127,7 +141,7 @@ export default function PersonalSite() {
           <nav className="hidden items-center gap-6 text-sm text-neutral-600 md:flex">
             <a href="#about" className="transition hover:text-neutral-950">About</a>
             <a href="#work" className="transition hover:text-neutral-950">Work</a>
-            <a href="#notes" className="transition hover:text-neutral-950">Notes</a>
+            <Link href="/notes" className="transition hover:text-neutral-950">Notes</Link>
             <a href="#contact" className="transition hover:text-neutral-950">Contact</a>
           </nav>
         </header>
@@ -136,7 +150,7 @@ export default function PersonalSite() {
           <section className="grid gap-10 py-20 md:grid-cols-[1.3fr_0.7fr] md:py-28">
             <div>
               <p className="mb-4 text-xs uppercase tracking-[0.24em] text-neutral-500">
-                Minimal personal website
+                My Minimal website
               </p>
               <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-neutral-950 md:text-6xl md:leading-[1.05]">
                 I build practical systems that turn ideas into reliable execution.
@@ -252,13 +266,17 @@ export default function PersonalSite() {
 
               <div className="space-y-4">
                 {notes.map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center justify-between rounded-3xl border border-neutral-200 px-5 py-4 transition hover:border-neutral-950"
+                  <Link
+                    key={item.slug}
+                    href={`/notes/${item.slug}`}
+                    className="flex items-start justify-between gap-4 rounded-3xl border border-neutral-200 px-5 py-4 transition hover:border-neutral-950"
                   >
-                    <p className="text-sm font-medium text-neutral-800">{item}</p>
-                    <IconArrowUpRight className="h-4 w-4 text-neutral-500" />
-                  </div>
+                    <div>
+                      <p className="text-sm font-medium text-neutral-800">{item.title}</p>
+                      <p className="mt-1 text-xs leading-6 text-neutral-600">{item.blurb}</p>
+                    </div>
+                    <IconArrowUpRight className="mt-1 h-4 w-4 text-neutral-500" />
+                  </Link>
                 ))}
               </div>
             </div>
@@ -274,13 +292,12 @@ export default function PersonalSite() {
                   </h2>
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-neutral-600">
                     Replace the placeholder links below with your real profiles, email, and resume.
-                    The structure is already ready for a polished personal site.
                   </p>
                 </div>
 
                 <div className="flex flex-wrap gap-3 text-sm">
                   <a
-                    href="mailto:hello@example.com"
+                    href="mailto:rajesh.huria@gmail.com"
                     className="inline-flex items-center gap-2 rounded-2xl border border-neutral-300 px-4 py-3 transition hover:border-neutral-950"
                   >
                     <IconMail />
