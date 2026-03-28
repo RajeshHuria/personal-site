@@ -290,9 +290,6 @@ export default function PersonalSite() {
                   <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
                     Let’s build something useful.
                   </h2>
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-neutral-600">
-                    Replace the placeholder links below with your real profiles, email, and resume.
-                  </p>
                 </div>
 
                 <div className="flex flex-wrap gap-3 text-sm">
