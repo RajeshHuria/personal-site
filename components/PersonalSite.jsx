@@ -156,7 +156,7 @@ export default function PersonalSite() {
                 I build practical systems that turn ideas into reliable execution.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-neutral-600 md:text-lg">
-                Computer scientist based in Germany, working across software, delivery, automation,
+                Release Manager who still builds and breaks systems to understand them, based in Germany, working across software, delivery, automation,
                 and system design. Interested in useful products, clear workflows, and technology
                 that actually works in production.
               </p>
