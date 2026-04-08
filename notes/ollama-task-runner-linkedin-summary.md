@@ -1,9 +1,15 @@
-This note summarizes the LinkedIn post by Rajesh Huria about improvements in the Ollama task runner.
+Made my local Ollama task runner much more natural to use.
 
-The post highlights a new version of Ollama as a task orchestrator, focusing on enhanced task orchestration capabilities. Key points include improved integration with GitHub and a streamlined task orchestration process enabling better automation and CI/CD workflows.
+Now I can type things like:
+ollama run "run tests for auth"
+ollama run "add a retry decorator to src/utils.py"
+ollama run --dry-run "update src/api.py with a FastAPI endpoint"
 
-The update introduces more robust handling of task dependencies and concurrency controls, enabling more efficient and flexible task executions.
+Instead of rigid commands, it understands intent, routes safely, and lets me preview actions before anything risky runs.
 
-The author also shares examples demonstrating easier orchestration of complex workflows and improved developer experience through simplified configuration.
+Here is the GitHub link for anyone who wants to try it.
+https://lnkd.in/dhBdXm8Q
 
-This release aims to boost developer productivity and continuous delivery effectiveness by offering a versatile, developer-centric task orchestration tool.
+If you’ve been curious about using LLMs for vibe-coding projects, this is a nice way to experiment locally before committing to another subscription.
+
+#Ollama #LocalAI #LLM #DeveloperTools #OpenSource #VibeCoding
