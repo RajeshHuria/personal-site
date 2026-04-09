@@ -13,11 +13,6 @@ const notes = [
       "If something did not run, it should be treated as failure.",
     ],
   },
-      "One model should coordinate, another should execute.",
-      "Trying to do everything with one model leads to instability.",
-      "Clear roles make systems more reliable.",
-    ],
-  },
   {
     slug: "practical-multi-agent-lessons",
     title: "Lessons from building a practical multi-agent system",
@@ -27,6 +22,21 @@ const notes = [
       "Define who executes and who decides.",
       "Always verify results with logs and outputs.",
       "Simple systems scale better than complex ones.",
+    ],
+  },
+  {
+    slug: "ollama-task-runner-linkedin-summary",
+    title: "Ollama Task Runner LinkedIn Summary",
+    intro:
+      "Introducing my local Ollama task runner improvements on LinkedIn.",
+    body: [
+      "Made my local Ollama task runner much more natural to use.",
+      "Now I can type things like: ollama run \"run tests for auth\"",
+      "ollama run \"add a retry decorator to src/utils.py\"",
+      "ollama run --dry-run \"update src/api.py with a FastAPI endpoint\"",
+      "Instead of rigid commands, it understands intent, routes safely, and lets me preview actions before anything risky runs.",
+      "Here is the GitHub link for anyone who wants to try it: https://lnkd.in/dhBdXm8Q",
+      "If you’ve been curious about using LLMs for vibe-coding projects, this is a nice way to experiment locally before committing to another subscription.",
     ],
   },
 ];
@@ -55,30 +65,18 @@ export default async function NotePage({
         </Link>
 
         <article className="mt-8">
-          <h1 className="text-3xl font-semibold md:text-5xl">
-            {note.title}
-          </h1>
+          <h1 className="text-3xl font-semibold md:text-5xl">{note.title}</h1>
 
-          <p className="mt-6 text-lg text-neutral-600">
-            {note.intro}
-          </p>
+          <p className="mt-6 text-lg text-neutral-600">{note.intro}</p>
 
           <div className="mt-10 space-y-6 text-neutral-700">
-            {note.body.map((p, i) => (
-              <p key={i}>{p}</p>
+            {note.body.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
         </article>
       </div>
     </main>
   );
-}  { slug: "ollama-task-runner-linkedin-summary", title: "Ollama Task Runner LinkedIn Summary", intro: "Introducing my local Ollama task runner improvements on LinkedIn.", body: [
-    "Made my local Ollama task runner much more natural to use.",
-    "Now I can type things like: ollama run \"run tests for auth\"",
-    "ollama run \"add a retry decorator to src/utils.py\"",
-    "ollama run --dry-run \"update src/api.py with a FastAPI endpoint\"",
-    "Instead of rigid commands, it understands intent, routes safely, and lets me preview actions before anything risky runs.",
-    "Here is the GitHub link for anyone who wants to try it: https://lnkd.in/dhBdXm8Q",
-    "If you’ve been curious about using LLMs for vibe-coding projects, this is a nice way to experiment locally before committing to another subscription."
-  ],
-},
+}
+
