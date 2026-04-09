@@ -12,8 +12,6 @@ const notes = [
     blurb: "Use cloud for thinking, local for execution.",
   },
   {
-    slug: "practical-multi-agent-lessons",
-    title: "Multi-agent lessons",
     blurb: "Clear roles + verification = working systems.",
   },
 ];

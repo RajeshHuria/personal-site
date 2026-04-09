@@ -13,12 +13,6 @@ const notes = [
       "If something did not run, it should be treated as failure.",
     ],
   },
-  {
-    slug: "local-plus-cloud-coding-setup",
-    title: "What actually works in a local-plus-cloud coding setup",
-    intro:
-      "Use strong cloud models for planning and local models for execution.",
-    body: [
       "One model should coordinate, another should execute.",
       "Trying to do everything with one model leads to instability.",
       "Clear roles make systems more reliable.",
@@ -78,4 +72,13 @@ export default async function NotePage({
       </div>
     </main>
   );
-}
+}  { slug: "ollama-task-runner-linkedin-summary", title: "Ollama Task Runner LinkedIn Summary", intro: "Introducing my local Ollama task runner improvements on LinkedIn.", body: [
+    "Made my local Ollama task runner much more natural to use.",
+    "Now I can type things like: ollama run \"run tests for auth\"",
+    "ollama run \"add a retry decorator to src/utils.py\"",
+    "ollama run --dry-run \"update src/api.py with a FastAPI endpoint\"",
+    "Instead of rigid commands, it understands intent, routes safely, and lets me preview actions before anything risky runs.",
+    "Here is the GitHub link for anyone who wants to try it: https://lnkd.in/dhBdXm8Q",
+    "If you’ve been curious about using LLMs for vibe-coding projects, this is a nice way to experiment locally before committing to another subscription."
+  ],
+},
