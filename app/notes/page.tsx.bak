@@ -1,0 +1,54 @@
+import Link from "next/link";
+
+const notes = [
+  {
+    slug: "ai-agents-simulate-execution",
+    title: "Why AI agents fail when they simulate execution",
+    blurb: "Agents say they did things—but nothing actually ran.",
+  },
+  {
+    slug: "local-plus-cloud-coding-setup",
+    title: "Local + cloud coding setup",
+    blurb: "Use cloud for thinking, local for execution.",
+  },
+  {
+    slug: "practical-multi-agent-lessons",
+    title: "Multi-agent lessons",
+    blurb: "Clear roles + verification = working systems.",
+  },
+  {
+    slug: "ollama-task-runner-linkedin-summary",
+    title: "Ollama Task Runner LinkedIn Summary",
+    blurb: "Introducing my local Ollama task runner improvements on LinkedIn.",
+  },
+];
+
+export default function NotesPage() {
+  return (
+    <main className="min-h-screen bg-white text-neutral-950">
+      <div className="mx-auto max-w-4xl px-6 py-16 md:px-10 md:py-24">
+        <Link href="/" className="text-sm text-neutral-500 hover:text-black">
+          ← Back home
+        </Link>
+
+        <div className="mt-8">
+          <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">
+            Notes
+          </p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
+            Writing and ideas
+          </h1>
+        </div>
+
+        <div className="mt-10 space-y-4">
+          {notes.map((item) => (
+            <Link key={item.slug} href={} className="block rounded-3xl border border-neutral-200 px-5 py-5 transition hover:border-neutral-950">
+              <p className="text-base font-medium text-neutral-900">{item.title}</p>
+              <p className="mt-2 text-sm leading-7 text-neutral-600">{item.blurb}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </main>
+  );
+}
