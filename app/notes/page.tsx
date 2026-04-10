@@ -4,15 +4,18 @@ const notes = [
   {
     slug: "ai-agents-simulate-execution",
     title: "Why AI agents fail when they simulate execution",
-    blurb: "Agents say they did things—but nothing actually ran.",
+    blurb: "Agents say they did things, but nothing actually ran.",
   },
   {
-    slug: "local-plus-cloud-coding-setup",
-    title: "Local + cloud coding setup",
-    blurb: "Use cloud for thinking, local for execution.",
+    slug: "practical-multi-agent-lessons",
+    title: "Lessons from building a practical multi-agent system",
+    blurb: "Clear roles and verification make agent systems work.",
   },
   {
-    blurb: "Clear roles + verification = working systems.",
+    slug: "ollama-task-runner-linkedin-summary",
+    title: "Ollama Task Runner LinkedIn Summary",
+    blurb:
+      "Introducing my local Ollama task runner improvements on LinkedIn.",
   },
 ];
 
@@ -53,3 +56,4 @@ export default function NotesPage() {
     </main>
   );
 }
+
