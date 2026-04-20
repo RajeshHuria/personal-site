@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import NoteContent from "./note-content";
 
 const notes = [
   {
@@ -36,7 +37,7 @@ const notes = [
       "ollama run --dry-run \"update src/api.py with a FastAPI endpoint\"",
       "Instead of rigid commands, it understands intent, routes safely, and lets me preview actions before anything risky runs.",
       "Here is the GitHub link for anyone who wants to try it: https://lnkd.in/dhBdXm8Q",
-      "If you’ve been curious about using LLMs for vibe-coding projects, this is a nice way to experiment locally before committing to another subscription.",
+      "If you've been curious about using LLMs for vibe-coding projects, this is a nice way to experiment locally before committing to another subscription.",
     ],
   },
 ];
@@ -45,11 +46,11 @@ export function generateStaticParams() {
   return notes.map((note) => ({ slug: note.slug }));
 }
 
-export default async function NotePage({
-  params,
-}: {
+interface NotePageProps {
   params: Promise<{ slug: string }>;
-}) {
+}
+
+export default async function NotePage({ params }: NotePageProps) {
   const { slug } = await params;
   const note = notes.find((n) => n.slug === slug);
 
@@ -57,26 +58,5 @@ export default async function NotePage({
     notFound();
   }
 
-  return (
-    <main className="min-h-screen bg-white text-neutral-950">
-      <div className="mx-auto max-w-3xl px-6 py-16 md:px-10 md:py-24">
-        <Link href="/" className="text-sm text-neutral-500 hover:text-black">
-          ← Back home
-        </Link>
-
-        <article className="mt-8">
-          <h1 className="text-3xl font-semibold md:text-5xl">{note.title}</h1>
-
-          <p className="mt-6 text-lg text-neutral-600">{note.intro}</p>
-
-          <div className="mt-10 space-y-6 text-neutral-700">
-            {note.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </article>
-      </div>
-    </main>
-  );
+  return <NoteContent note={note} />;
 }
-

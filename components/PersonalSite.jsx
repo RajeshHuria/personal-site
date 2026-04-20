@@ -1,334 +1,1014 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-
-const IconGithub = ({ className = "h-4 w-4" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <path d="M9 19c-4 1.5-4-2-6-2" />
-    <path d="M15 22v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.8A5.3 5.3 0 0 0 19 5.1 4.9 4.9 0 0 0 18.9 1S17.7.7 15 2.5a13.4 13.4 0 0 0-6 0C6.3.7 5.1 1 5.1 1A4.9 4.9 0 0 0 5 5.1a5.3 5.3 0 0 0-1.3 3.6c0 5.3 3.2 6.5 6.2 6.8A3.4 3.4 0 0 0 9 18.1V22" />
-  </svg>
-);
-
-const IconLinkedin = ({ className = "h-4 w-4" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" />
-    <path d="M2 9h4v12H2z" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
-const IconMail = ({ className = "h-4 w-4" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <rect x="3" y="5" width="18" height="14" rx="2" />
-    <path d="m4 7 8 6 8-6" />
-  </svg>
-);
-
-const IconArrowUpRight = ({ className = "h-4 w-4" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <path d="M7 17 17 7" />
-    <path d="M7 7h10v10" />
-  </svg>
-);
-
-const IconServer = ({ className = "h-5 w-5" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <rect x="3" y="4" width="18" height="6" rx="2" />
-    <rect x="3" y="14" width="18" height="6" rx="2" />
-    <path d="M7 7h.01M7 17h.01" />
-  </svg>
-);
-
-const IconBot = ({ className = "h-5 w-5" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <rect x="4" y="7" width="16" height="10" rx="3" />
-    <path d="M12 3v4M9 12h.01M15 12h.01M8 21l1.5-4M16 17l1.5 4" />
-  </svg>
-);
-
-const IconSmartphone = ({ className = "h-5 w-5" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <rect x="7" y="2" width="10" height="20" rx="2" />
-    <path d="M11 18h2" />
-  </svg>
-);
-
-const IconWorkflow = ({ className = "h-5 w-5" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
-    <circle cx="6" cy="6" r="2" />
-    <circle cx="18" cy="6" r="2" />
-    <circle cx="12" cy="18" r="2" />
-    <path d="M8 6h8M7.5 7.5 10.5 16M16.5 7.5 13.5 16" />
-  </svg>
-);
-
-const building = [
-  {
-    title: "Multi-agent systems",
-    text: "Designing practical agent workflows focused on delegation, execution, and verification.",
-    icon: IconBot,
-  },
-  {
-    title: "Reliable delivery",
-    text: "Improving release flow, operational clarity, and the path from planning to production.",
-    icon: IconWorkflow,
-  },
-  {
-    title: "Systems + infrastructure",
-    text: "Exploring remote execution, local AI, VPS setups, and lightweight automation stacks.",
-    icon: IconServer,
-  },
-  {
-    title: "Product-minded engineering",
-    text: "Working at the intersection of software, developer experience, and practical outcomes.",
-    icon: IconSmartphone,
-  },
-];
 
 const principles = [
   "Execution over intention",
   "If it did not run, it did not happen",
   "Logs beat assumptions",
   "Keep systems simple enough to debug",
+  "Clarity before cleverness",
+  "Release often · verify always",
 ];
 
-const focusAreas = [
+const building = [
   {
-    name: "OpenClaw workflows",
-    desc: "Multi-agent orchestration, execution boundaries, and dependable task routing.",
+    idx: "01",
+    title: "Multi-agent systems",
+    desc: "Delegation, execution, verification — in that order.",
   },
   {
-    name: "Local + cloud AI setup",
-    desc: "Combining local coding models with stronger coordinator models for real work.",
+    idx: "02",
+    title: "Reliable delivery",
+    desc: "Improving release flow and operational clarity.",
   },
   {
-    name: "Remote execution",
-    desc: "Mac-based runners, VPN-connected access, and infrastructure that stays practical.",
+    idx: "03",
+    title: "Systems + infrastructure",
+    desc: "Remote execution, local AI, lightweight automation.",
+  },
+  {
+    idx: "04",
+    title: "Product-minded engineering",
+    desc: "Software, developer experience, practical outcomes.",
   },
 ];
 
 const notes = [
   {
     slug: "ai-agents-simulate-execution",
+    tag: "Agents",
     title: "Why AI agents fail when they simulate execution",
-    blurb: "Agents say they did things—but nothing actually ran.",
+    blurb: "Agents say they did things — but nothing actually ran.",
   },
   {
     slug: "local-plus-cloud-coding-setup",
+    tag: "Setup",
     title: "Local + cloud coding setup",
     blurb: "Use cloud for thinking, local for execution.",
   },
   {
     slug: "practical-multi-agent-lessons",
-    title: "Multi-agent lessons",
+    tag: "Systems",
+    title: "Multi-agent lessons from the field",
     blurb: "Clear roles + verification = working systems.",
   },
 ];
 
 export default function PersonalSite() {
+  const [isHovering, setIsHovering] = useState(false);
+  const cursorRef = useRef({ x: 0, y: 0 });
+  const ringRef = useRef({ x: 0, y: 0 });
+  const cursorElRef = useRef(null);
+  const ringElRef = useRef(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      cursorRef.current = { x: e.clientX, y: e.clientY };
+
+      if (cursorElRef.current) {
+        cursorElRef.current.style.left = e.clientX + "px";
+        cursorElRef.current.style.top = e.clientY + "px";
+      }
+    };
+
+    const animRing = () => {
+      const mx = cursorRef.current.x;
+      const my = cursorRef.current.y;
+      const rx = ringRef.current.x;
+      const ry = ringRef.current.y;
+
+      ringRef.current.x = rx + (mx - rx) * 0.12;
+      ringRef.current.y = ry + (my - ry) * 0.12;
+
+      if (ringElRef.current) {
+        ringElRef.current.style.left = ringRef.current.x + "px";
+        ringElRef.current.style.top = ringRef.current.y + "px";
+      }
+
+      requestAnimationFrame(animRing);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    const rafId = requestAnimationFrame(animRing);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  useEffect(() => {
+    const els = document.querySelectorAll("a, button, .hover-trigger");
+    els.forEach((el) => {
+      el.addEventListener("mouseenter", () => setIsHovering(true));
+      el.addEventListener("mouseleave", () => setIsHovering(false));
+    });
+
+    return () => {
+      els.forEach((el) => {
+        el.removeEventListener("mouseenter", () => setIsHovering(true));
+        el.removeEventListener("mouseleave", () => setIsHovering(false));
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    const fadeEls = document.querySelectorAll(".fade-up");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0, rootMargin: "0px 0px -60px 0px" }
+    );
+
+    fadeEls.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add("in");
+      } else {
+        io.observe(el);
+      }
+    });
+
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white text-neutral-950 antialiased">
-      <div className="mx-auto max-w-6xl px-6 py-6 md:px-10">
-        <header className="flex items-center justify-between border-b border-neutral-200 py-5">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-neutral-200 text-sm font-semibold">
-              RH
+    <div style={{ "--marquee-speed": "30s" }}>
+      <style jsx global>{`
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        :root {
+          --bg: #080807;
+          --fg: #f0ebe4;
+          --muted: #6b6560;
+          --rule: #1e1d1b;
+          --accent: #d4a84b;
+          --serif: "Cormorant Garamond", Georgia, serif;
+          --mono: "DM Mono", monospace;
+          --pad: clamp(24px, 5vw, 80px);
+          --max: 1400px;
+        }
+
+        html {
+          font-size: 16px;
+          scroll-behavior: smooth;
+        }
+
+        body {
+          background: var(--bg);
+          color: var(--fg);
+          font-family: var(--mono);
+          font-weight: 300;
+          -webkit-font-smoothing: antialiased;
+          overflow-x: hidden;
+          cursor: none;
+        }
+
+        /* ── GRAIN ── */
+        body::before {
+          content: "";
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          pointer-events: none;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+          background-repeat: repeat;
+          background-size: 256px 256px;
+          mix-blend-mode: overlay;
+          opacity: 0.6;
+        }
+
+        /* ── CURSOR ── */
+        #cursor {
+          position: fixed;
+          z-index: 10000;
+          width: 8px;
+          height: 8px;
+          background: var(--accent);
+          border-radius: 50%;
+          pointer-events: none;
+          transform: translate(-50%, -50%);
+          transition: width 0.2s, height 0.2s, opacity 0.2s;
+          mix-blend-mode: difference;
+        }
+
+        #cursor-ring {
+          position: fixed;
+          z-index: 9998;
+          width: 32px;
+          height: 32px;
+          border: 1px solid rgba(212, 168, 75, 0.3);
+          border-radius: 50%;
+          pointer-events: none;
+          transform: translate(-50%, -50%);
+          transition: width 0.25s, height 0.25s, border-color 0.25s,
+            opacity 0.25s;
+        }
+
+        body.cursor-hover #cursor {
+          width: 4px;
+          height: 4px;
+        }
+
+        body.cursor-hover #cursor-ring {
+          width: 48px;
+          height: 48px;
+          border-color: var(--accent);
+          opacity: 0.7;
+        }
+
+        /* ── NAV ── */
+        nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 500;
+          padding: 1.5rem var(--pad);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          mix-blend-mode: difference;
+        }
+
+        .nav-brand {
+          font-family: var(--serif);
+          font-style: italic;
+          font-size: 1rem;
+          color: var(--fg);
+          text-decoration: none;
+          letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+          display: flex;
+          gap: 2rem;
+          list-style: none;
+        }
+
+        .nav-links a {
+          font-size: 0.65rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--fg);
+          text-decoration: none;
+          opacity: 0.5;
+          transition: opacity 0.2s;
+          position: relative;
+        }
+
+        .nav-links a::after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          right: 100%;
+          height: 1px;
+          background: var(--accent);
+          transition: right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .nav-links a:hover {
+          opacity: 1;
+        }
+
+        .nav-links a:hover::after {
+          right: 0;
+        }
+
+        /* ── HERO ── */
+        #hero {
+          min-height: 100svh;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: 0 var(--pad) clamp(40px, 6vh, 80px);
+          position: relative;
+          overflow: hidden;
+          border-bottom: 1px solid var(--rule);
+        }
+
+        .hero-name {
+          font-family: var(--serif);
+          font-weight: 300;
+          font-style: italic;
+          font-size: clamp(5rem, 12.5vw, 18rem);
+          line-height: 0.88;
+          letter-spacing: -0.03em;
+          color: var(--fg);
+          position: relative;
+          z-index: 2;
+          animation: heroReveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.1s both;
+        }
+
+        @keyframes heroReveal {
+          from {
+            clip-path: inset(100% 0 0 0);
+            opacity: 0;
+          }
+          to {
+            clip-path: inset(0 0 0 0);
+            opacity: 1;
+          }
+        }
+
+        .hero-sub {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          margin-top: clamp(24px, 4vh, 56px);
+          padding-top: clamp(24px, 4vh, 48px);
+          border-top: 1px solid var(--rule);
+          position: relative;
+          z-index: 2;
+          animation: fadeUp 0.9s cubic-bezier(0.25, 0.8, 0.25, 1) 0.7s both;
+        }
+
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(16px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+
+        .hero-tagline {
+          font-family: var(--serif);
+          font-size: clamp(1.2rem, 2.2vw, 2.2rem);
+          font-weight: 300;
+          line-height: 1.3;
+          letter-spacing: -0.01em;
+          color: var(--fg);
+        }
+
+        .hero-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 0.9rem;
+          font-size: 0.72rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--muted);
+          justify-content: flex-end;
+          align-items: flex-end;
+          text-align: right;
+        }
+
+        .hero-meta .pill {
+          display: inline-block;
+          border: 1px solid var(--rule);
+          padding: 0.35rem 0.8rem;
+          font-size: 0.62rem;
+          letter-spacing: 0.14em;
+          color: var(--muted);
+          transition: border-color 0.2s, color 0.2s;
+        }
+
+        .hero-meta .pill:hover {
+          border-color: var(--accent);
+          color: var(--accent);
+        }
+
+        /* ── MARQUEE ── */
+        .marquee-wrap {
+          overflow: hidden;
+          padding: 1rem 0;
+          border-bottom: 1px solid var(--rule);
+        }
+
+        .marquee-track {
+          display: flex;
+          white-space: nowrap;
+          animation: marquee var(--marquee-speed, 30s) linear infinite;
+        }
+
+        .marquee-track:hover {
+          animation-play-state: paused;
+        }
+
+        .marquee-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 2rem;
+          padding: 0 2rem;
+          font-size: 0.65rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--muted);
+          flex-shrink: 0;
+        }
+
+        .marquee-sep {
+          color: var(--accent);
+          font-size: 0.8rem;
+        }
+
+        @keyframes marquee {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        /* ── SECTIONS ── */
+        .section {
+          border-bottom: 1px solid var(--rule);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .section-inner {
+          max-width: var(--max);
+          margin: 0 auto;
+          padding: clamp(60px, 10vh, 120px) var(--pad);
+        }
+
+        .ghost-num {
+          position: absolute;
+          font-family: var(--serif);
+          font-size: clamp(12rem, 25vw, 32rem);
+          font-weight: 300;
+          font-style: italic;
+          color: transparent;
+          -webkit-text-stroke: 1px var(--rule);
+          right: var(--pad);
+          top: 50%;
+          transform: translateY(-50%);
+          line-height: 1;
+          pointer-events: none;
+          user-select: none;
+          z-index: 0;
+        }
+
+        .fade-up {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.in {
+          opacity: 1;
+          transform: none;
+        }
+
+        .s-label {
+          font-size: 0.62rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--accent);
+          margin-bottom: 2rem;
+          display: block;
+        }
+
+        .s-heading {
+          font-family: var(--serif);
+          font-size: clamp(2.5rem, 5.5vw, 7rem);
+          font-weight: 300;
+          letter-spacing: -0.025em;
+          line-height: 0.95;
+          position: relative;
+          z-index: 1;
+        }
+
+        .s-heading em {
+          font-style: italic;
+          color: var(--accent);
+        }
+
+        /* ── ABOUT ── */
+        .about-body {
+          font-family: var(--serif);
+          font-size: clamp(1.4rem, 2.6vw, 3rem);
+          font-weight: 300;
+          line-height: 1.45;
+          letter-spacing: -0.01em;
+          max-width: 36ch;
+          position: relative;
+          z-index: 1;
+          margin-top: 3rem;
+        }
+
+        .about-body em {
+          font-style: italic;
+          color: var(--accent);
+        }
+
+        .about-aside {
+          margin-top: 3rem;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.5rem;
+          max-width: 600px;
+        }
+
+        .aside-item {
+          border-top: 1px solid var(--rule);
+          padding-top: 1rem;
+          font-size: 0.72rem;
+          letter-spacing: 0.06em;
+          color: var(--muted);
+          line-height: 1.7;
+        }
+
+        .aside-item strong {
+          display: block;
+          color: var(--fg);
+          font-weight: 400;
+          margin-bottom: 0.3rem;
+        }
+
+        /* ── FOCUS ── */
+        .focus-list {
+          position: relative;
+          z-index: 1;
+          margin-top: 4rem;
+        }
+
+        .focus-item {
+          display: grid;
+          grid-template-columns: 3.5rem 1fr auto;
+          gap: 2rem;
+          align-items: baseline;
+          padding: 1.6rem 0;
+          border-top: 1px solid var(--rule);
+          transition: background 0.15s;
+          position: relative;
+        }
+
+        .focus-item::before {
+          content: "";
+          position: absolute;
+          left: calc(-1 * var(--pad));
+          right: calc(-1 * var(--pad));
+          top: 0;
+          bottom: 0;
+          background: var(--rule);
+          opacity: 0;
+          transition: opacity 0.2s;
+          z-index: -1;
+        }
+
+        .focus-item:hover::before {
+          opacity: 1;
+        }
+
+        .focus-item:last-child {
+          border-bottom: 1px solid var(--rule);
+        }
+
+        .focus-idx {
+          font-size: 0.65rem;
+          letter-spacing: 0.1em;
+          color: var(--muted);
+          font-variant-numeric: tabular-nums;
+        }
+
+        .focus-name {
+          font-family: var(--serif);
+          font-size: clamp(1.1rem, 2vw, 1.8rem);
+          font-weight: 300;
+          letter-spacing: -0.01em;
+        }
+
+        .focus-desc {
+          font-size: 0.72rem;
+          letter-spacing: 0.04em;
+          color: var(--muted);
+          line-height: 1.6;
+          max-width: 32ch;
+          text-align: right;
+        }
+
+        /* ── NOTES ── */
+        .notes-list {
+          position: relative;
+          z-index: 1;
+          margin-top: 4rem;
+        }
+
+        .note-item {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 2rem;
+          align-items: center;
+          padding: 1.8rem 0;
+          border-top: 1px solid var(--rule);
+          text-decoration: none;
+          color: var(--fg);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .note-item::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 100%;
+          height: 1px;
+          background: var(--accent);
+          transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .note-item:hover::after {
+          right: 0;
+        }
+
+        .note-item:last-child {
+          border-bottom: 1px solid var(--rule);
+        }
+
+        .note-tag {
+          display: block;
+          font-size: 0.6rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--accent);
+          margin-bottom: 0.5rem;
+        }
+
+        .note-title {
+          font-family: var(--serif);
+          font-size: clamp(1rem, 1.8vw, 1.5rem);
+          font-weight: 300;
+          letter-spacing: -0.01em;
+          transition: color 0.2s;
+        }
+
+        .note-item:hover .note-title {
+          color: var(--accent);
+        }
+
+        .note-blurb {
+          font-size: 0.72rem;
+          color: var(--muted);
+          margin-top: 0.3rem;
+          letter-spacing: 0.04em;
+        }
+
+        .note-arrow {
+          font-family: var(--serif);
+          font-style: italic;
+          font-size: 1.5rem;
+          color: var(--muted);
+          opacity: 0.3;
+          transition: opacity 0.2s, transform 0.2s, color 0.2s;
+        }
+
+        .note-item:hover .note-arrow {
+          opacity: 1;
+          color: var(--accent);
+          transform: translate(4px, -4px);
+        }
+
+        /* ── CONTACT ── */
+        .contact-big-email {
+          display: block;
+          font-family: var(--serif);
+          font-style: italic;
+          font-weight: 300;
+          font-size: clamp(2.5rem, 7vw, 10rem);
+          letter-spacing: -0.03em;
+          line-height: 0.9;
+          color: var(--fg);
+          text-decoration: none;
+          margin-top: 2rem;
+          position: relative;
+          z-index: 1;
+          background: linear-gradient(90deg, var(--fg) 50%, var(--accent) 50%);
+          background-size: 200% 100%;
+          background-position: 0%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          transition: background-position 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .contact-big-email:hover {
+          background-position: -100%;
+        }
+
+        .contact-links-row {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin-top: 3rem;
+          position: relative;
+          z-index: 1;
+        }
+
+        .contact-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.7rem 1.4rem;
+          border: 1px solid var(--rule);
+          font-size: 0.65rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--muted);
+          text-decoration: none;
+          transition: border-color 0.2s, color 0.2s;
+        }
+
+        .contact-link:hover {
+          border-color: var(--accent);
+          color: var(--accent);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+          padding: 1.5rem var(--pad);
+          max-width: var(--max);
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .footer-name {
+          font-family: var(--serif);
+          font-style: italic;
+          font-size: 0.875rem;
+          color: var(--muted);
+        }
+
+        .footer-copy {
+          font-size: 0.62rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+          .hero-sub {
+            grid-template-columns: 1fr;
+          }
+          .focus-item {
+            grid-template-columns: 1fr;
+            gap: 0.4rem;
+          }
+          .focus-idx,
+          .focus-desc {
+            display: none;
+          }
+          .note-item {
+            grid-template-columns: 1fr auto;
+          }
+          .nav-links {
+            display: none;
+          }
+          .ghost-num {
+            display: none;
+          }
+          .about-aside {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+
+      <div id="cursor" ref={cursorElRef}></div>
+      <div id="cursor-ring" ref={ringElRef}></div>
+
+      {/* Navigation */}
+      <nav>
+        <a className="nav-brand" href="#hero">
+          R.H.
+        </a>
+        <ul className="nav-links">
+          <li>
+            <a href="#about">About</a>
+          </li>
+          <li>
+            <a href="#focus">Focus</a>
+          </li>
+          <li>
+            <Link href="/notes">Notes</Link>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Hero */}
+      <section id="hero">
+        <h1 className="hero-name">
+          Rajesh<br />
+          <span style={{ color: "var(--accent)" }}>Huria.</span>
+        </h1>
+
+        <div className="hero-sub">
+          <p className="hero-tagline">
+            I build systems that turn ideas<br />
+            into reliable execution.
+          </p>
+          <div className="hero-meta">
+            <span>Release Manager · Engineer</span>
+            <span>Based in Germany</span>
+            <span style={{ marginTop: "0.5rem" }}>
+              <a href="#focus" className="pill">
+                View focus areas
+              </a>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* Marquee */}
+      <div className="marquee-wrap">
+        <div className="marquee-track">
+          {[...principles, ...principles].map((p, i) => (
+            <div key={i} className="marquee-item">
+              {p}
+              <span className="marquee-sep">·</span>
             </div>
-            <div>
-              <p className="text-sm font-medium">Rajesh Huria</p>
-              <p className="text-xs text-neutral-500">Software · Systems · Delivery</p>
+          ))}
+        </div>
+      </div>
+
+      {/* About */}
+      <section className="section" id="about">
+        <div className="ghost-num">01</div>
+        <div className="section-inner">
+          <span className="s-label fade-up">About</span>
+          <p className="about-body fade-up" style={{ transitionDelay: "0.1s" }}>
+            Engineering, systems thinking, and delivery —{" "}
+            <em>all three at once.</em> Making workflows dependable. Reducing
+            friction between planning and production. Still breaking things to
+            understand them.
+          </p>
+          <div
+            className="about-aside fade-up"
+            style={{ transitionDelay: "0.2s" }}
+          >
+            <div className="aside-item">
+              <strong>Now building</strong>Multi-agent workflows for practical
+              software execution
+            </div>
+            <div className="aside-item">
+              <strong>Exploring</strong>Local AI, remote runners, lightweight
+              infrastructure
+            </div>
+            <div className="aside-item">
+              <strong>Interested in</strong>Developer tooling, release
+              reliability, minimal design
+            </div>
+            <div className="aside-item">
+              <strong>Location</strong>Germany · remote-first
             </div>
           </div>
+        </div>
+      </section>
 
-          <nav className="hidden items-center gap-6 text-sm text-neutral-600 md:flex">
-            <a href="#about" className="transition hover:text-neutral-950">About</a>
-            <a href="#work" className="transition hover:text-neutral-950">Work</a>
-            <Link href="/notes" className="transition hover:text-neutral-950">Notes</Link>
-            <a href="#contact" className="transition hover:text-neutral-950">Contact</a>
-          </nav>
-        </header>
-
-        <main>
-          <section className="grid gap-10 py-20 md:grid-cols-[1.3fr_0.7fr] md:py-28">
-            <div>
-              <p className="mb-4 text-xs uppercase tracking-[0.24em] text-neutral-500">
-                My Minimal website
-              </p>
-              <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-neutral-950 md:text-6xl md:leading-[1.05]">
-                I build practical systems that turn ideas into reliable execution.
-              </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-neutral-600 md:text-lg">
-                Release Manager who still builds and breaks systems to understand them, based in Germany, working across software, delivery, automation,
-                and system design. Interested in useful products, clear workflows, and technology
-                that actually works in production.
-              </p>
-
-              <div className="mt-10 flex flex-wrap gap-3">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-neutral-950 px-5 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5"
-                >
-                  Get in touch
-                  <IconArrowUpRight />
-                </a>
-                <a
-                  href="#work"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-neutral-300 px-5 py-3 text-sm font-medium transition hover:border-neutral-950"
-                >
-                  View focus areas
-                </a>
+      {/* Focus */}
+      <section className="section" id="focus">
+        <div className="ghost-num">02</div>
+        <div className="section-inner">
+          <span className="s-label fade-up">Current focus</span>
+          <h2 className="s-heading fade-up" style={{ transitionDelay: "0.1s" }}>
+            What I'm<br />
+            <em>building.</em>
+          </h2>
+          <div
+            className="focus-list fade-up"
+            style={{ transitionDelay: "0.2s" }}
+          >
+            {building.map((item) => (
+              <div key={item.idx} className="focus-item">
+                <span className="focus-idx">{item.idx}</span>
+                <span className="focus-name">{item.title}</span>
+                <span className="focus-desc">{item.desc}</span>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="rounded-3xl border border-neutral-200 p-6 md:p-7">
-              <p className="text-sm font-medium">Now</p>
-              <div className="mt-5 space-y-4 text-sm leading-6 text-neutral-600">
-                <p>Building multi-agent workflows for practical software execution.</p>
-                <p>Exploring local AI, remote runners, and lightweight infrastructure setups.</p>
-                <p>Interested in developer tooling, release reliability, and minimal product design.</p>
-              </div>
-            </div>
-          </section>
-
-          <section id="about" className="border-t border-neutral-200 py-16 md:py-20">
-            <div className="grid gap-10 md:grid-cols-[1fr_1fr]">
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">About</p>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-neutral-700">
-                  My work sits between engineering, systems thinking, and delivery. I enjoy making
-                  workflows more dependable, reducing friction between planning and execution, and
-                  designing setups that remain understandable as they grow.
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">Principles</p>
-                <ul className="mt-5 space-y-3 text-sm text-neutral-700">
-                  {principles.map((item) => (
-                    <li key={item} className="rounded-2xl border border-neutral-200 px-4 py-3">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <section id="work" className="border-t border-neutral-200 py-16 md:py-20">
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">What I’m building</p>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-                  Current areas of focus
-                </h2>
-              </div>
-              <p className="max-w-xl text-sm leading-7 text-neutral-600">
-                A compact view of the systems, tools, and workflows I am most interested in right now.
-              </p>
-            </div>
-
-            <div className="mt-8 grid gap-4 md:grid-cols-2">
-              {building.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.title}
-                    className="rounded-3xl border border-neutral-200 p-6 transition hover:-translate-y-0.5 hover:border-neutral-950"
-                  >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-neutral-100">
-                      <Icon />
-                    </div>
-                    <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-neutral-600">{item.text}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="border-t border-neutral-200 py-16 md:py-20">
-            <div className="grid gap-4 md:grid-cols-3">
-              {focusAreas.map((item) => (
-                <div key={item.name} className="rounded-3xl border border-neutral-200 p-6">
-                  <p className="text-base font-semibold">{item.name}</p>
-                  <p className="mt-3 text-sm leading-7 text-neutral-600">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section id="notes" className="border-t border-neutral-200 py-16 md:py-20">
-            <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr]">
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">Notes</p>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-                  Ideas worth writing about
-                </h2>
-              </div>
-
-              <div className="space-y-4">
-                {notes.map((item) => (
-                  <Link
-                    key={item.slug}
-                    href={`/notes/${item.slug}`}
-                    className="flex items-start justify-between gap-4 rounded-3xl border border-neutral-200 px-5 py-4 transition hover:border-neutral-950"
-                  >
-                    <div>
-                      <p className="text-sm font-medium text-neutral-800">{item.title}</p>
-                      <p className="mt-1 text-xs leading-6 text-neutral-600">{item.blurb}</p>
-                    </div>
-                    <IconArrowUpRight className="mt-1 h-4 w-4 text-neutral-500" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section id="contact" className="border-t border-neutral-200 py-16 md:py-20">
-            <div className="rounded-[2rem] border border-neutral-200 p-8 md:p-10">
-              <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      {/* Notes */}
+      <section className="section" id="notes">
+        <div className="ghost-num">03</div>
+        <div className="section-inner">
+          <span className="s-label fade-up">Notes</span>
+          <h2 className="s-heading fade-up" style={{ transitionDelay: "0.1s" }}>
+            Ideas worth<br />
+            <em>writing down.</em>
+          </h2>
+          <div
+            className="notes-list fade-up"
+            style={{ transitionDelay: "0.2s" }}
+          >
+            {notes.map((note) => (
+              <Link key={note.slug} href={`/notes/${note.slug}`} className="note-item hover-trigger">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.24em] text-neutral-500">Contact</p>
-                  <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
-                    Let’s build something useful.
-                  </h2>
+                  <span className="note-tag">{note.tag}</span>
+                  <p className="note-title">{note.title}</p>
+                  <p className="note-blurb">{note.blurb}</p>
                 </div>
-
-                <div className="flex flex-wrap gap-3 text-sm">
-                  <a
-                    href="mailto:rajesh.huria@gmail.com"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-neutral-300 px-4 py-3 transition hover:border-neutral-950"
-                  >
-                    <IconMail />
-                    Email
-                  </a>
-                  <a
-                    href="https://github.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-neutral-300 px-4 py-3 transition hover:border-neutral-950"
-                  >
-                    <IconGithub />
-                    GitHub
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-2xl border border-neutral-300 px-4 py-3 transition hover:border-neutral-950"
-                  >
-                    <IconLinkedin />
-                    LinkedIn
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        <footer className="border-t border-neutral-200 py-6 text-sm text-neutral-500">
-          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-            <p>© 2026 Rajesh Huria</p>
-            <p>Minimal by design. Easy to extend.</p>
+                <span className="note-arrow">↗</span>
+              </Link>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="section" id="contact">
+        <div className="ghost-num">04</div>
+        <div className="section-inner">
+          <span className="s-label fade-up">Contact</span>
+          <p
+            className="fade-up"
+            style={{
+              fontSize: "0.75rem",
+              letterSpacing: "0.08em",
+              color: "var(--muted)",
+              maxWidth: "80ch",
+              lineHeight: 1.7,
+              transitionDelay: "0.1s",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Open to conversations about delivery, agent systems, infrastructure,
+            and developer tooling.
+          </p>
+          <a
+            className="contact-big-email fade-up hover-trigger"
+            href="mailto:rajesh.huria@gmail.com"
+            style={{ transitionDelay: "0.15s" }}
+          >
+            rajesh.huria@gmail.com
+          </a>
+          <div
+            className="contact-links-row fade-up"
+            style={{ transitionDelay: "0.25s" }}
+          >
+            <a
+              className="contact-link hover-trigger"
+              href="https://github.com/rajeshhuria"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="M9 19c-4 1.5-4-2-6-2" />
+                <path d="M15 22v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.8A5.3 5.3 0 0 0 19 5.1 4.9 4.9 0 0 0 18.9 1S17.7.7 15 2.5a13.4 13.4 0 0 0-6 0C6.3.7 5.1 1 5.1 1A4.9 4.9 0 0 0 5 5.1a5.3 5.3 0 0 0-1.3 3.6c0 5.3 3.2 6.5 6.2 6.8A3.4 3.4 0 0 0 9 18.1V22" />
+              </svg>
+              GitHub
+            </a>
+            <a
+              className="contact-link hover-trigger"
+              href="https://linkedin.com/in/rajeshhuria"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" />
+                <path d="M2 9h4v12H2z" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <div style={{ maxWidth: "var(--max)", margin: "0 auto", borderTop: "1px solid var(--rule)" }}>
+        <footer>
+          <span className="footer-name">Rajesh Huria</span>
+          <span className="footer-copy">© 2026 · huria.dev</span>
         </footer>
       </div>
     </div>
