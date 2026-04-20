@@ -15,9 +15,12 @@ const mono = DM_Mono({
   weight: ["300", "400"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Rajesh Huria",
   description: "Software engineer building practical systems, AI workflows, and reliable delivery pipelines.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
