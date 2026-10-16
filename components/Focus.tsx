@@ -26,7 +26,7 @@ export default function Focus() {
   return (
     <section className="py-20 px-6 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50">
       <div className="max-w-7xl mx-auto">
-        <h2 className="font-serif text-4xl md:text-5xl font-light mb-16">What I'm Building</h2>
+        <h2 className="font-serif text-4xl md:text-5xl font-light mb-16">What I&apos;m Building</h2>
 
         <div className="grid md:grid-cols-2 gap-12">
           {focusAreas.map((area, idx) => (

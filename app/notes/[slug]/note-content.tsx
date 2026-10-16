@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface Note {
   slug: string;
@@ -15,7 +15,6 @@ interface NoteContentProps {
 }
 
 export default function NoteContent({ note }: NoteContentProps) {
-  const [isHovering, setIsHovering] = useState(false);
   const cursorRef = useRef({ x: 0, y: 0 });
   const ringRef = useRef({ x: 0, y: 0 });
   const cursorElRef = useRef<HTMLDivElement>(null);
@@ -60,11 +59,9 @@ export default function NoteContent({ note }: NoteContentProps) {
   useEffect(() => {
     const els = document.querySelectorAll("a, button, .hover-trigger");
     const handleEnter = () => {
-      setIsHovering(true);
       document.body.classList.add("cursor-hover");
     };
     const handleLeave = () => {
-      setIsHovering(false);
       document.body.classList.remove("cursor-hover");
     };
 

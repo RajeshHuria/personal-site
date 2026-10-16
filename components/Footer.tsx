@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           <div>
-            <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">Let's work together</h2>
+            <h2 className="font-serif text-3xl md:text-4xl font-light mb-4">Let&apos;s work together</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               Open to conversations about delivery, agent systems, infrastructure, and product engineering.
             </p>
