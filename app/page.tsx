@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <Header />
-      <main className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen">
+      <main style={{ backgroundColor: "#0f172a", color: "#f1f5f9" }} className="min-h-screen">
         <Hero />
         <Projects />
         <Focus />
