@@ -31,9 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${serif.variable} ${mono.variable} h-full antialiased`}
+      className={`${serif.variable} ${mono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-gray-950 text-gray-50">{children}</body>
     </html>
   );
 }

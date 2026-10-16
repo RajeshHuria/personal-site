@@ -24,15 +24,15 @@ const focusAreas: FocusArea[] = [
 
 export default function Focus() {
   return (
-    <section className="py-20 px-6 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50">
+    <section className="py-20 px-6 border-b border-gray-800">
       <div className="max-w-7xl mx-auto">
-        <h2 className="font-serif text-4xl md:text-5xl font-light mb-16">What I&apos;m Building</h2>
+        <h2 className="font-serif text-4xl md:text-5xl font-light mb-16 text-gray-50">What I&apos;m Building</h2>
 
         <div className="grid md:grid-cols-2 gap-12">
           {focusAreas.map((area, idx) => (
             <div key={idx}>
-              <h3 className="font-serif text-xl md:text-2xl font-light mb-3">{area.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{area.description}</p>
+              <h3 className="font-serif text-xl md:text-2xl font-light mb-3 text-gray-100">{area.title}</h3>
+              <p className="text-gray-400 leading-relaxed">{area.description}</p>
             </div>
           ))}
         </div>

@@ -32,29 +32,29 @@ const projects: Project[] = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-6 border-t border-gray-200 dark:border-gray-800">
+    <section id="projects" className="py-20 px-6 border-b border-gray-800">
       <div className="max-w-7xl mx-auto">
-        <h2 className="font-serif text-4xl md:text-5xl font-light mb-16">Selected Projects</h2>
+        <h2 className="font-serif text-4xl md:text-5xl font-light mb-16 text-gray-50">Selected Projects</h2>
 
-        <div className="grid gap-8 md:gap-12">
+        <div className="space-y-12">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="border-b border-gray-200 dark:border-gray-800 pb-8 md:pb-12 last:border-0"
+              className="border-b border-gray-800 pb-12 last:border-0"
             >
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                 <div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-light mb-2">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{project.description}</p>
+                  <h3 className="font-serif text-xl md:text-2xl font-light mb-2 text-gray-100">{project.title}</h3>
+                  <p className="text-gray-400">{project.description}</p>
                 </div>
-                <span className="text-sm text-gray-500 dark:text-gray-500 whitespace-nowrap">{project.year}</span>
+                <span className="text-xs text-gray-600 whitespace-nowrap">{project.year}</span>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-400"
+                    className="text-xs px-3 py-1 rounded-full bg-gray-900 text-gray-400"
                   >
                     {tag}
                   </span>
