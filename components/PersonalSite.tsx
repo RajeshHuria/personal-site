@@ -11,18 +11,18 @@ const projects = [
     year: 2024,
   },
   {
+    id: "ollama-task-orchestrator",
+    title: "Ollama Task Orchestrator",
+    description: "Local LLM task runner with intent-based command interpretation, dry-run previews, and multi-agent workflows. Supports natural language task specification and safe execution.",
+    tags: ["Python", "Ollama", "Local AI", "Automation"],
+    year: 2024,
+  },
+  {
     id: "personal-site",
     title: "Personal Portfolio Site",
     description: "Full-stack portfolio with blog integration, dark mode, and optimized performance. Built with Next.js and TypeScript.",
     tags: ["Next.js", "React", "TypeScript", "Tailwind"],
     year: 2024,
-  },
-  {
-    id: "release-automation",
-    title: "Release Automation Framework",
-    description: "Internal framework for coordinating multi-team releases at TeamViewer. Handles versioning, testing, and deployment orchestration.",
-    tags: ["Python", "CI/CD", "DevOps"],
-    year: 2023,
   },
 ];
 
@@ -193,7 +193,13 @@ export default function PersonalSite() {
                 <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                   <div>
                     <a
-                      href={project.id === "mcp-teamviewer" ? "https://github.com/teamviewer/teamviewer-mcp-server" : "#"}
+                      href={
+                        project.id === "mcp-teamviewer"
+                          ? "https://github.com/teamviewer/teamviewer-mcp-server"
+                          : project.id === "ollama-task-orchestrator"
+                            ? "https://github.com/RajeshHuria/ollama-task-orchestrator"
+                            : "#"
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ textDecoration: "none", color: "inherit" }}
