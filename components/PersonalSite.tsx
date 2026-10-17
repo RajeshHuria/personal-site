@@ -390,14 +390,6 @@ export default function PersonalSite() {
                 >
                   LinkedIn
                 </a>
-                <a
-                  href="https://twitter.com/rajesh_huria"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: "#2563eb", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}
-                >
-                  Twitter
-                </a>
               </div>
             </div>
           </div>
