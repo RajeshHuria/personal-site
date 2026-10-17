@@ -192,16 +192,25 @@ export default function PersonalSite() {
               <div key={project.id} style={{ borderBottom: "1px solid #e2e8f0", paddingBottom: "2.5rem" }}>
                 <div style={{ marginBottom: "1rem", display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                   <div>
-                    <h3
-                      style={{
-                        fontSize: "1.25rem",
-                        fontWeight: "600",
-                        marginBottom: "0.5rem",
-                        color: "#0f172a",
-                      }}
+                    <a
+                      href={project.id === "mcp-teamviewer" ? "https://github.com/teamviewer/teamviewer-mcp-server" : "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {project.title}
-                    </h3>
+                      <h3
+                        style={{
+                          fontSize: "1.25rem",
+                          fontWeight: "600",
+                          marginBottom: "0.5rem",
+                          color: "#2563eb",
+                          cursor: "pointer",
+                          transition: "color 0.3s",
+                        }}
+                      >
+                        {project.title}
+                      </h3>
+                    </a>
                     <p style={{ color: "#64748b", lineHeight: "1.6" }}>{project.description}</p>
                   </div>
                   <span style={{ color: "#94a3b8", fontSize: "0.875rem", whiteSpace: "nowrap" }}>
