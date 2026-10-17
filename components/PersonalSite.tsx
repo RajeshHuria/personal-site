@@ -8,14 +8,14 @@ const projects = [
     title: "TeamViewer MCP Server",
     description: "Model Context Protocol server exposing TeamViewer Web API as tools for Claude. Enables programmatic device management and session control.",
     tags: ["Python", "FastAPI", "MCP", "APIs"],
-    year: 2024,
+    year: 2026,
   },
   {
     id: "ollama-task-orchestrator",
     title: "Ollama Task Orchestrator",
     description: "Local LLM task runner with intent-based command interpretation, dry-run previews, and multi-agent workflows. Supports natural language task specification and safe execution.",
     tags: ["Python", "Ollama", "Local AI", "Automation"],
-    year: 2024,
+    year: 2026,
   },
 ];
 
@@ -177,7 +177,7 @@ export default function PersonalSite() {
               color: "#0f172a",
             }}
           >
-            Selected Projects
+            Recent Projects
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
