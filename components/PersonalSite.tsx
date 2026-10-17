@@ -156,7 +156,7 @@ export default function PersonalSite() {
               View Projects
             </a>
             <a
-              href="#contact"
+              href="mailto:rajesh.huria@gmail.com"
               style={{
                 padding: "0.75rem 1.5rem",
                 border: "2px solid #2563eb",
