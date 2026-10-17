@@ -17,13 +17,6 @@ const projects = [
     tags: ["Python", "Ollama", "Local AI", "Automation"],
     year: 2024,
   },
-  {
-    id: "personal-site",
-    title: "Personal Portfolio Site",
-    description: "Full-stack portfolio with blog integration, dark mode, and optimized performance. Built with Next.js and TypeScript.",
-    tags: ["Next.js", "React", "TypeScript", "Tailwind"],
-    year: 2024,
-  },
 ];
 
 const focusAreas = [
