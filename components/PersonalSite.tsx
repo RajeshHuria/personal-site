@@ -1,6 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import Link from "next/link";
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  content: string;
+}
+
+interface PersonalSiteProps {
+  recentBlogs?: BlogPost[];
+}
 
 const projects = [
   {
@@ -38,44 +49,7 @@ const focusAreas = [
   },
 ];
 
-const notes = [
-  {
-    slug: "ai-agents-simulate-execution",
-    title: "Why AI agents fail when they simulate execution",
-    tag: "Agents",
-    date: "2024-10-01",
-    readTime: 5,
-  },
-  {
-    slug: "local-plus-cloud-coding-setup",
-    title: "Local + cloud coding setup",
-    tag: "Setup",
-    date: "2024-09-15",
-    readTime: 8,
-  },
-  {
-    slug: "practical-multi-agent-lessons",
-    title: "Multi-agent lessons from the field",
-    tag: "Systems",
-    date: "2024-08-20",
-    readTime: 12,
-  },
-];
-
-export default function PersonalSite() {
-  const cursorRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      cursorRef.current = { x: e.clientX, y: e.clientY };
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
+export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
   return (
     <div
       style={{
@@ -117,7 +91,7 @@ export default function PersonalSite() {
             <a href="#focus" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               FOCUS
             </a>
-            <a href="#writing" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            <a href="/blogs" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               BLOGS
             </a>
             <a href="#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
@@ -142,7 +116,7 @@ export default function PersonalSite() {
             I build systems that turn ideas into reliable execution
           </h1>
           <div style={{ marginBottom: "2rem", color: "#475569", lineHeight: "1.6" }}>
-            <p>Release Manager &amp; Engineer at TeamViewer</p>
+            <p>Release Manager & Engineer at TeamViewer</p>
             <p>Based in Esslingen am Neckar, Germany</p>
           </div>
           <div style={{ display: "flex", gap: "1rem" }}>
@@ -161,7 +135,7 @@ export default function PersonalSite() {
               View Projects
             </a>
             <a
-              href="mailto:rajesh.huria@gmail.com"
+              href="#contact"
               style={{
                 padding: "0.75rem 1.5rem",
                 border: "2px solid #2563eb",
@@ -286,66 +260,84 @@ export default function PersonalSite() {
         </div>
       </section>
 
-      {/* Writing */}
-      <section id="writing" style={{ padding: "4rem 1.5rem", borderBottom: "1px solid #e2e8f0" }}>
-        <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
-          <h2
-            style={{
-              fontSize: "2rem",
-              fontWeight: "700",
-              marginBottom: "3rem",
-              color: "#0f172a",
-            }}
-          >
-            Blogs
-          </h2>
+      {/* Recent Blogs */}
+      {recentBlogs.length > 0 && (
+        <section id="blogs" style={{ padding: "4rem 1.5rem", borderBottom: "1px solid #e2e8f0" }}>
+          <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
+            <h2
+              style={{
+                fontSize: "2rem",
+                fontWeight: "700",
+                marginBottom: "3rem",
+                color: "#0f172a",
+              }}
+            >
+              Recent Blogs
+            </h2>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-            {notes.map((note) => (
-              <a
-                key={note.slug}
-                href={`/notes/${note.slug}`}
-                style={{
-                  padding: "1.5rem",
-                  backgroundColor: "#f8fafc",
-                  borderRadius: "0.5rem",
-                  border: "1px solid #e2e8f0",
-                  textDecoration: "none",
-                  color: "inherit",
-                  transition: "all 0.3s",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", marginBottom: "0.75rem" }}>
-                  <div>
-                    <div style={{ fontSize: "0.75rem", color: "#2563eb", textTransform: "uppercase", fontWeight: "600", marginBottom: "0.5rem" }}>
-                      {note.tag}
-                    </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+              {recentBlogs.map((blog) => (
+                <Link
+                  key={blog.slug}
+                  href={`/blogs/${blog.slug}`}
+                  style={{
+                    padding: "1.5rem",
+                    backgroundColor: "#f8fafc",
+                    borderRadius: "0.5rem",
+                    border: "1px solid #e2e8f0",
+                    textDecoration: "none",
+                    color: "inherit",
+                    transition: "all 0.3s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#f1f5f9";
+                    e.currentTarget.style.borderColor = "#cbd5e1";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#f8fafc";
+                    e.currentTarget.style.borderColor = "#e2e8f0";
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                     <h3
                       style={{
                         fontSize: "1.125rem",
                         fontWeight: "600",
-                        color: "#0f172a",
+                        color: "#2563eb",
                       }}
                     >
-                      {note.title}
+                      {blog.title}
                     </h3>
+                    <span style={{ color: "#94a3b8", fontSize: "0.875rem", whiteSpace: "nowrap" }}>
+                      {new Date(blog.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
                   </div>
-                  <span style={{ color: "#94a3b8", fontSize: "0.875rem", whiteSpace: "nowrap", fontWeight: "500" }}>
-                    {note.readTime} min
-                  </span>
-                </div>
-                <time style={{ fontSize: "0.875rem", color: "#94a3b8" }}>
-                  {new Date(note.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </time>
-              </a>
-            ))}
+                </Link>
+              ))}
+            </div>
+
+            <div style={{ marginTop: "2rem" }}>
+              <Link
+                href="/blogs"
+                style={{
+                  color: "#2563eb",
+                  textDecoration: "none",
+                  fontWeight: "500",
+                  transition: "color 0.3s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#1e40af")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#2563eb")}
+              >
+                View all blogs →
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer */}
       <section id="contact" style={{ padding: "4rem 1.5rem" }}>
@@ -422,7 +414,7 @@ export default function PersonalSite() {
               justifyContent: "space-between",
               alignItems: "center",
               gap: "1rem",
-              fontSize: "0.875rem",
+              fontSize: "0.75rem",
               color: "#94a3b8",
               flexWrap: "wrap",
             }}

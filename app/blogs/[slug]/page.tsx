@@ -1,19 +1,23 @@
-"use client";
-
 import Link from "next/link";
+import { getBlogPost, getBlogSlugs } from "@/lib/blog";
+import { notFound } from "next/navigation";
 
-interface Note {
-  slug: string;
-  title: string;
-  intro: string;
-  body: string[];
+export function generateStaticParams() {
+  return getBlogSlugs().map((slug) => ({ slug }));
 }
 
-interface NoteContentProps {
-  note: Note;
+interface BlogPageProps {
+  params: Promise<{ slug: string }>;
 }
 
-export default function NoteContent({ note }: NoteContentProps) {
+export default async function BlogPage({ params }: BlogPageProps) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
+
+  if (!post) {
+    notFound();
+  }
+
   return (
     <main
       style={{
@@ -30,7 +34,7 @@ export default function NoteContent({ note }: NoteContentProps) {
         }}
       >
         <Link
-          href="/notes"
+          href="/blogs"
           style={{
             fontSize: "0.875rem",
             color: "#2563eb",
@@ -50,22 +54,19 @@ export default function NoteContent({ note }: NoteContentProps) {
               fontSize: "2.5rem",
               fontWeight: "700",
               lineHeight: 1.2,
-              marginBottom: "1.5rem",
+              marginBottom: "0.5rem",
               color: "#0f172a",
             }}
           >
-            {note.title}
+            {post.title}
           </h1>
 
-          <p
-            style={{
-              fontSize: "1.125rem",
-              lineHeight: 1.6,
-              color: "#475569",
-              marginBottom: "2.5rem",
-            }}
-          >
-            {note.intro}
+          <p style={{ color: "#94a3b8", fontSize: "0.875rem", marginBottom: "2.5rem" }}>
+            {new Date(post.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </p>
 
           <div
@@ -73,19 +74,13 @@ export default function NoteContent({ note }: NoteContentProps) {
               display: "flex",
               flexDirection: "column",
               gap: "1.5rem",
+              fontSize: "1rem",
+              lineHeight: 1.7,
+              color: "#475569",
             }}
           >
-            {note.body.map((paragraph, idx) => (
-              <p
-                key={idx}
-                style={{
-                  fontSize: "1rem",
-                  lineHeight: 1.7,
-                  color: "#475569",
-                }}
-              >
-                {paragraph}
-              </p>
+            {post.content.split("\n\n").map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
             ))}
           </div>
         </article>

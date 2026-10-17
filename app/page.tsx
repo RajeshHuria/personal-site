@@ -1,5 +1,9 @@
 import PersonalSite from "@/components/PersonalSite";
+import { getAllBlogPosts } from "@/lib/blog";
 
 export default function Page() {
-  return <PersonalSite />;
+  const allPosts = getAllBlogPosts();
+  const recentPosts = allPosts.slice(0, 2);
+
+  return <PersonalSite recentBlogs={recentPosts} />;
 }

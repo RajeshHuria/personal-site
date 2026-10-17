@@ -1,27 +1,9 @@
-"use client";
-
+import { getAllBlogPosts } from "@/lib/blog";
 import Link from "next/link";
 
-const notes = [
-  {
-    slug: "ai-agents-simulate-execution",
-    title: "Why AI agents fail when they simulate execution",
-    blurb: "Agents say they did things, but nothing actually ran.",
-  },
-  {
-    slug: "practical-multi-agent-lessons",
-    title: "Lessons from building a practical multi-agent system",
-    blurb: "Clear roles and verification make agent systems work.",
-  },
-  {
-    slug: "ollama-task-runner-linkedin-summary",
-    title: "Ollama Task Runner LinkedIn Summary",
-    blurb:
-      "Introducing my local Ollama task runner improvements on LinkedIn.",
-  },
-];
+export default function BlogsPage() {
+  const posts = getAllBlogPosts();
 
-export default function NotesPage() {
   return (
     <main
       style={{
@@ -65,10 +47,10 @@ export default function NotesPage() {
         </h1>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-          {notes.map((note) => (
+          {posts.map((post) => (
             <Link
-              key={note.slug}
-              href={`/notes/${note.slug}`}
+              key={post.slug}
+              href={`/blogs/${post.slug}`}
               style={{
                 padding: "1.5rem",
                 backgroundColor: "#f8fafc",
@@ -87,22 +69,31 @@ export default function NotesPage() {
                 e.currentTarget.style.borderColor = "#e2e8f0";
               }}
             >
-              <h2
-                style={{
-                  fontSize: "1.25rem",
-                  fontWeight: "600",
-                  marginBottom: "0.5rem",
-                  color: "#2563eb",
-                }}
-              >
-                {note.title}
-              </h2>
-              <p style={{ fontSize: "0.95rem", color: "#64748b" }}>
-                {note.blurb}
-              </p>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+                <h2
+                  style={{
+                    fontSize: "1.25rem",
+                    fontWeight: "600",
+                    color: "#2563eb",
+                  }}
+                >
+                  {post.title}
+                </h2>
+                <span style={{ color: "#94a3b8", fontSize: "0.875rem", whiteSpace: "nowrap" }}>
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
             </Link>
           ))}
         </div>
+
+        {posts.length === 0 && (
+          <p style={{ color: "#94a3b8", fontSize: "1rem" }}>No blogs yet.</p>
+        )}
       </div>
     </main>
   );
