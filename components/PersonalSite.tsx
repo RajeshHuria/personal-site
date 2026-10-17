@@ -28,20 +28,20 @@ const projects = [
 
 const focusAreas = [
   {
-    title: "Multi-agent systems",
-    description: "Delegation, execution, verification — in that order. Building systems where AI agents collaborate reliably.",
+    title: "Release Automation & Governance",
+    description: "Enterprise release process design (ITIL 4 / ISO 20000). Built governance dashboards for data-driven decisions.",
   },
   {
-    title: "Reliable delivery",
-    description: "Improving release flow and operational clarity. Making deployments safe, fast, and predictable.",
+    title: "AI-Assisted Delivery Operations",
+    description: "Claude-based automation for documentation, reporting, workflows, and team enablement.",
   },
   {
-    title: "Systems + infrastructure",
-    description: "Remote execution, local AI, lightweight automation. Building tools that scale without complexity.",
+    title: "Team Leadership & Mentoring",
+    description: "Building scalable teams, setting standards, enabling high performance.",
   },
   {
-    title: "Product-minded engineering",
-    description: "Software, developer experience, practical outcomes. Code that solves real problems.",
+    title: "Delivery Performance & Risk",
+    description: "Cycle-time optimization, rollback planning, governance frameworks, metrics-driven decisions.",
   },
 ];
 
