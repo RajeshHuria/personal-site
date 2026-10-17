@@ -113,7 +113,7 @@ export default function PersonalSite() {
               FOCUS
             </a>
             <a href="#writing" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
-              WRITING
+              BLOGS
             </a>
             <a href="#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               CONTACT
@@ -277,7 +277,7 @@ export default function PersonalSite() {
               color: "#0f172a",
             }}
           >
-            Writing
+            Blogs
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
