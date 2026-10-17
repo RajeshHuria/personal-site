@@ -383,7 +383,7 @@ export default function PersonalSite() {
                   GitHub
                 </a>
                 <a
-                  href="https://linkedin.com/in/rajesh-huria"
+                  href="https://www.linkedin.com/in/rajeshhuria/"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: "#2563eb", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}
