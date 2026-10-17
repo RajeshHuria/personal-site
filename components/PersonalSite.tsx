@@ -427,7 +427,7 @@ export default function PersonalSite() {
               flexWrap: "wrap",
             }}
           >
-            <p>&copy; 2026 Rajesh Huria. Based in Germany.</p>
+            <p>&copy; 2026 Rajesh Huria</p>
             <p>Release Manager &amp; Engineer at TeamViewer</p>
           </div>
         </div>
