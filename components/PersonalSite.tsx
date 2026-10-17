@@ -95,9 +95,21 @@ export default function PersonalSite() {
             alignItems: "center",
           }}
         >
-          <div style={{ fontSize: "1.5rem", fontWeight: "700", color: "#0f172a" }}>
+          <a
+            href="/"
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: "700",
+              color: "#0f172a",
+              textDecoration: "none",
+              cursor: "pointer",
+              transition: "color 0.3s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#2563eb")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#0f172a")}
+          >
             Rajesh Huria
-          </div>
+          </a>
           <div style={{ display: "flex", gap: "2rem", fontSize: "0.875rem" }}>
             <a href="#projects" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               PROJECTS
