@@ -80,7 +80,27 @@ export default function BlogContentClient({ post }: BlogContentClientProps) {
             }}
           >
             {post.content.split("\n\n").map((paragraph, idx) => (
-              <p key={idx}>{paragraph}</p>
+              <p key={idx}>
+                {paragraph.split(/(\bhttps?:\/\/[^\s]+)/g).map((part, i) =>
+                  part.match(/\bhttps?:\/\/[^\s]+/) ? (
+                    <a
+                      key={i}
+                      href={part}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: "#2563eb",
+                        textDecoration: "underline",
+                        transition: "color 0.3s",
+                      }}
+                    >
+                      {part}
+                    </a>
+                  ) : (
+                    part
+                  )
+                )}
+              </p>
             ))}
           </div>
         </article>
