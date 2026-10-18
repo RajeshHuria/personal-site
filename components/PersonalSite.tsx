@@ -118,6 +118,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
           <div style={{ marginBottom: "2rem", color: "#475569", lineHeight: "1.6" }}>
             <p>Release Manager & Engineer at TeamViewer</p>
             <p>Based in Esslingen am Neckar, Germany</p>
+            <p style={{ marginTop: "1rem", fontSize: "0.95rem" }}>Specializing in release automation, AI-assisted delivery operations, and team leadership.</p>
           </div>
           <div style={{ display: "flex", gap: "1rem" }}>
             <a
