@@ -13,7 +13,6 @@ interface BlogContentClientProps {
 }
 
 export default function BlogContentClient({ post, backToBlogs }: BlogContentClientProps) {
-  const lang = "en";
 
   return (
     <main
@@ -58,7 +57,7 @@ export default function BlogContentClient({ post, backToBlogs }: BlogContentClie
           </h1>
 
           <p style={{ color: "#94a3b8", fontSize: "0.875rem", marginBottom: "2.5rem" }}>
-            {new Date(post.date).toLocaleDateString(lang === "de" ? "de-DE" : "en-US", {
+            {new Date(post.date).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
