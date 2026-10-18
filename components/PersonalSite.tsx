@@ -85,16 +85,16 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
             Rajesh Huria
           </a>
           <div style={{ display: "flex", gap: "2rem", fontSize: "0.875rem" }}>
-            <a href="#projects" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            <a href="/#projects" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               PROJECTS
             </a>
-            <a href="#focus" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            <a href="/#focus" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               FOCUS
             </a>
-            <a href="/blogs" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            <Link href="/blogs" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               BLOGS
-            </a>
-            <a href="#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            </Link>
+            <a href="/#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               CONTACT
             </a>
           </div>
