@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useLanguage } from "@/app/LanguageProvider";
+import { translations } from "@/lib/translations";
 
 interface BlogPost {
   slug: string;
@@ -13,43 +15,90 @@ interface PersonalSiteProps {
   recentBlogs?: BlogPost[];
 }
 
-const projects = [
-  {
-    id: "mcp-teamviewer",
-    title: "TeamViewer MCP Server",
-    description: "Model Context Protocol server exposing TeamViewer Web API as tools for Claude. Enables programmatic device management and session control.",
-    tags: ["Python", "FastAPI", "MCP", "APIs"],
-    year: 2026,
-  },
-  {
-    id: "ollama-task-orchestrator",
-    title: "Ollama Task Orchestrator",
-    description: "Local LLM task runner with intent-based command interpretation, dry-run previews, and multi-agent workflows. Supports natural language task specification and safe execution.",
-    tags: ["Python", "Ollama", "Local AI", "Automation"],
-    year: 2026,
-  },
-];
+function getProjects(lang: string) {
+  if (lang === "de") {
+    return [
+      {
+        id: "mcp-teamviewer",
+        title: translations.de.projects.teamviewerMcp,
+        description: translations.de.projects.teamviewerDesc,
+        tags: ["Python", "FastAPI", "MCP", "APIs"],
+        year: 2026,
+      },
+      {
+        id: "ollama-task-orchestrator",
+        title: translations.de.projects.ollama,
+        description: translations.de.projects.ollamaDesc,
+        tags: ["Python", "Ollama", "Local AI", "Automation"],
+        year: 2026,
+      },
+    ];
+  }
+  return [
+    {
+      id: "mcp-teamviewer",
+      title: translations.en.projects.teamviewerMcp,
+      description: translations.en.projects.teamviewerDesc,
+      tags: ["Python", "FastAPI", "MCP", "APIs"],
+      year: 2026,
+    },
+    {
+      id: "ollama-task-orchestrator",
+      title: translations.en.projects.ollama,
+      description: translations.en.projects.ollamaDesc,
+      tags: ["Python", "Ollama", "Local AI", "Automation"],
+      year: 2026,
+    },
+  ];
+}
 
-const focusAreas = [
-  {
-    title: "Release Automation & Governance",
-    description: "Enterprise release process design and governance. Built dashboards for data-driven decisions.",
-  },
-  {
-    title: "AI-Assisted Delivery Operations",
-    description: "Claude-based automation for documentation, reporting, workflows, and team enablement.",
-  },
-  {
-    title: "Team Leadership & Mentoring",
-    description: "Building scalable teams, setting standards, enabling high performance.",
-  },
-  {
-    title: "Delivery Performance & Risk",
-    description: "Cycle-time optimization, rollback planning, governance frameworks, metrics-driven decisions.",
-  },
-];
+function getFocusAreas(lang: string) {
+  if (lang === "de") {
+    return [
+      {
+        title: translations.de.focusAreas.releaseAutomation,
+        description: translations.de.focusAreas.releaseAutomationDesc,
+      },
+      {
+        title: translations.de.focusAreas.aiDelivery,
+        description: translations.de.focusAreas.aiDeliveryDesc,
+      },
+      {
+        title: translations.de.focusAreas.leadership,
+        description: translations.de.focusAreas.leadershipDesc,
+      },
+      {
+        title: translations.de.focusAreas.performance,
+        description: translations.de.focusAreas.performanceDesc,
+      },
+    ];
+  }
+  return [
+    {
+      title: translations.en.focusAreas.releaseAutomation,
+      description: translations.en.focusAreas.releaseAutomationDesc,
+    },
+    {
+      title: translations.en.focusAreas.aiDelivery,
+      description: translations.en.focusAreas.aiDeliveryDesc,
+    },
+    {
+      title: translations.en.focusAreas.leadership,
+      description: translations.en.focusAreas.leadershipDesc,
+    },
+    {
+      title: translations.en.focusAreas.performance,
+      description: translations.en.focusAreas.performanceDesc,
+    },
+  ];
+}
 
 export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
+  const { lang, setLang } = useLanguage();
+  const t = translations[lang];
+  const projects = getProjects(lang);
+  const focusAreas = getFocusAreas(lang);
+
   return (
     <div
       style={{
@@ -81,21 +130,55 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
             }}
             className="hover:!text-blue-600"
           >
-            Rajesh Huria
+            {t.rajeshHuria}
           </Link>
-          <div style={{ display: "flex", gap: "2rem", fontSize: "0.875rem" }}>
+          <div style={{ display: "flex", gap: "2rem", fontSize: "0.875rem", alignItems: "center" }}>
             <Link href="/#projects" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
-              PROJECTS
+              {t.projects}
             </Link>
             <Link href="/#focus" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
-              FOCUS
+              {t.focus}
             </Link>
             <Link href="/blogs" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
-              BLOGS
+              {t.blogs}
             </Link>
             <Link href="/#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
-              CONTACT
+              {t.contact}
             </Link>
+            <div style={{ display: "flex", gap: "0.5rem", marginLeft: "1rem", paddingLeft: "1rem", borderLeft: "1px solid #e2e8f0" }}>
+              <button
+                onClick={() => setLang("en")}
+                style={{
+                  padding: "0.25rem 0.5rem",
+                  backgroundColor: lang === "en" ? "#2563eb" : "transparent",
+                  color: lang === "en" ? "#ffffff" : "#475569",
+                  border: "1px solid #cbd5e1",
+                  borderRadius: "0.25rem",
+                  cursor: "pointer",
+                  fontSize: "0.75rem",
+                  fontWeight: "500",
+                  transition: "all 0.3s",
+                }}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLang("de")}
+                style={{
+                  padding: "0.25rem 0.5rem",
+                  backgroundColor: lang === "de" ? "#2563eb" : "transparent",
+                  color: lang === "de" ? "#ffffff" : "#475569",
+                  border: "1px solid #cbd5e1",
+                  borderRadius: "0.25rem",
+                  cursor: "pointer",
+                  fontSize: "0.75rem",
+                  fontWeight: "500",
+                  transition: "all 0.3s",
+                }}
+              >
+                DE
+              </button>
+            </div>
           </div>
         </nav>
       </header>
@@ -112,12 +195,12 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
               color: "#0f172a",
             }}
           >
-            I build systems that turn ideas into reliable execution
+            {t.hero.title}
           </h1>
           <div style={{ marginBottom: "2rem", color: "#475569", lineHeight: "1.6" }}>
-            <p>Release Manager & Engineer at TeamViewer</p>
-            <p>Based in Esslingen am Neckar, Germany</p>
-            <p style={{ marginTop: "1rem", fontSize: "0.95rem" }}>Specializing in release automation, AI-assisted delivery operations, and team leadership.</p>
+            <p>{t.hero.role}</p>
+            <p>{t.hero.location}</p>
+            <p style={{ marginTop: "1rem", fontSize: "0.95rem" }}>{t.hero.services}</p>
           </div>
           <div style={{ display: "flex", gap: "1rem" }}>
             <a
@@ -132,7 +215,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
                 transition: "background-color 0.3s",
               }}
             >
-              View Projects
+              {t.hero.viewProjects}
             </a>
             <a
               href="#contact"
@@ -146,7 +229,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
                 transition: "all 0.3s",
               }}
             >
-              Get in Touch
+              {t.hero.getInTouch}
             </a>
           </div>
         </div>
@@ -163,7 +246,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
               color: "#0f172a",
             }}
           >
-            Recent Projects
+            {t.recentProjects}
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
@@ -237,7 +320,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
               color: "#0f172a",
             }}
           >
-            What I&apos;m Building
+            {t.whatBuilding}
           </h2>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "2rem" }}>
@@ -272,7 +355,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
                 color: "#0f172a",
               }}
             >
-              Recent Blogs
+              {t.recentBlogs}
             </h2>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
@@ -324,7 +407,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
                 }}
                 className="hover:text-blue-700"
               >
-                View all blogs →
+                {t.viewAllBlogs}
               </Link>
             </div>
           </div>
@@ -344,10 +427,10 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
                   color: "#0f172a",
                 }}
               >
-                Let&apos;s work together
+                {t.letsWorkTogether}
               </h2>
               <p style={{ color: "#64748b", marginBottom: "1.5rem", lineHeight: "1.6" }}>
-                Open to conversations about delivery, agent systems, infrastructure, and product engineering.
+                {t.collaboration}
               </p>
               <a
                 href="mailto:rajesh.huria@gmail.com"
@@ -362,7 +445,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
                   transition: "background-color 0.3s",
                 }}
               >
-                Send me an email
+                {t.sendEmail}
               </a>
             </div>
 
@@ -375,7 +458,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
                   color: "#0f172a",
                 }}
               >
-                Links
+                {t.links}
               </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 <a
@@ -411,8 +494,8 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
               flexWrap: "wrap",
             }}
           >
-            <p>&copy; 2026 Rajesh Huria</p>
-            <p>Release Manager &amp; Engineer at TeamViewer</p>
+            <p>{t.footer.copyright}</p>
+            <p>{t.footer.position}</p>
           </div>
         </div>
       </section>

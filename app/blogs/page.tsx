@@ -1,7 +1,13 @@
+"use client";
+
 import { getAllBlogPosts } from "@/lib/blog";
 import Link from "next/link";
+import { useLanguage } from "@/app/LanguageProvider";
+import { translations } from "@/lib/translations";
 
 export default function BlogsPage() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
   const posts = getAllBlogPosts();
 
   return (
@@ -30,7 +36,7 @@ export default function BlogsPage() {
           }}
           className="hover:text-blue-700"
         >
-          ← Back home
+          {t.backHome}
         </Link>
 
         <h1
@@ -42,7 +48,7 @@ export default function BlogsPage() {
             color: "#0f172a",
           }}
         >
-          Blogs
+          {lang === "de" ? "Blogs" : "Blogs"}
         </h1>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
@@ -84,7 +90,7 @@ export default function BlogsPage() {
         </div>
 
         {posts.length === 0 && (
-          <p style={{ color: "#94a3b8", fontSize: "1rem" }}>No blogs yet.</p>
+          <p style={{ color: "#94a3b8", fontSize: "1rem" }}>{t.noBlogs}</p>
         )}
       </div>
     </main>

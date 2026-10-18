@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Mono } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "./LanguageProvider";
 
 const serif = Cormorant_Garamond({
   variable: "--font-serif",
@@ -33,7 +34,9 @@ export default function RootLayout({
       lang="en"
       className={`${serif.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col" style={{ backgroundColor: "#0f172a", color: "#f1f5f9" }}>{children}</body>
+      <body className="min-h-full flex flex-col" style={{ backgroundColor: "#0f172a", color: "#f1f5f9" }}>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }
