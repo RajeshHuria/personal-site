@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Header() {
-  const [isDark, setIsDark] = useState(true);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-gray-800">

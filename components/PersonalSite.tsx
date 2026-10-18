@@ -69,7 +69,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
             alignItems: "center",
           }}
         >
-          <a
+          <Link
             href="/"
             style={{
               fontSize: "1.5rem",
@@ -83,20 +83,20 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
             onMouseLeave={(e) => (e.currentTarget.style.color = "#0f172a")}
           >
             Rajesh Huria
-          </a>
+          </Link>
           <div style={{ display: "flex", gap: "2rem", fontSize: "0.875rem" }}>
-            <a href="/#projects" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            <Link href="/#projects" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               PROJECTS
-            </a>
-            <a href="/#focus" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            </Link>
+            <Link href="/#focus" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               FOCUS
-            </a>
+            </Link>
             <Link href="/blogs" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               BLOGS
             </Link>
-            <a href="/#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
+            <Link href="/#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               CONTACT
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
