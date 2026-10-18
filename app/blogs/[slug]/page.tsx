@@ -20,6 +20,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
   }
 
   return (
-    <BlogContentClient post={post} />
+    <BlogContentClient post={post} backToBlogs="← Back to blogs" />
   );
 }

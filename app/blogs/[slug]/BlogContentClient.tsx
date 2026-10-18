@@ -1,8 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useLanguage } from "@/app/LanguageProvider";
-import { translations } from "@/lib/translations";
 
 interface BlogPost {
   slug: string;
@@ -13,11 +9,11 @@ interface BlogPost {
 
 interface BlogContentClientProps {
   post: BlogPost;
+  backToBlogs: string;
 }
 
-export default function BlogContentClient({ post }: BlogContentClientProps) {
-  const { lang } = useLanguage();
-  const t = translations[lang];
+export default function BlogContentClient({ post, backToBlogs }: BlogContentClientProps) {
+  const lang = "en";
 
   return (
     <main
@@ -45,7 +41,7 @@ export default function BlogContentClient({ post }: BlogContentClientProps) {
           }}
           className="hover:text-blue-700"
         >
-          {t.backToBlogs}
+          {backToBlogs}
         </Link>
 
         <article style={{ marginTop: "2rem" }}>
