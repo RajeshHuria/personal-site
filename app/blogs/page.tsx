@@ -28,8 +28,7 @@ export default function BlogsPage() {
             fontWeight: "500",
             transition: "color 0.3s",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#1e40af")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#2563eb")}
+          className="hover:text-blue-700"
         >
           ← Back home
         </Link>
@@ -60,14 +59,7 @@ export default function BlogsPage() {
                 color: "inherit",
                 transition: "all 0.3s",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#f1f5f9";
-                e.currentTarget.style.borderColor = "#cbd5e1";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#f8fafc";
-                e.currentTarget.style.borderColor = "#e2e8f0";
-              }}
+              className="hover:bg-slate-100 hover:border-slate-300"
             >
               <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                 <h2

@@ -42,8 +42,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
             fontWeight: "500",
             transition: "color 0.3s",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#1e40af")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#2563eb")}
+          className="hover:text-blue-700"
         >
           ← Back to blogs
         </Link>
