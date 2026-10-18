@@ -16,6 +16,20 @@ interface BlogContentClientProps {
   backToBlogs: string;
 }
 
+function linkifyText(text: string) {
+  const urlRegex = /(\bhttps?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+  return parts.map((part, i) =>
+    part.match(/\bhttps?:\/\/[^\s]+/) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+}
+
 function renderMarkdown(markdown: string) {
   const tokens = marked.lexer(markdown);
   return tokens.map((token, idx) => {
@@ -31,7 +45,7 @@ function renderMarkdown(markdown: string) {
     if (token.type === "paragraph") {
       return (
         <p key={idx} style={{ marginBottom: "1.5rem", color: "#475569", lineHeight: "1.7" }}>
-          {token.text}
+          {linkifyText(token.text)}
         </p>
       );
     }
