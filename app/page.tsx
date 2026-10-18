@@ -5,5 +5,5 @@ export default function Page() {
   const allPosts = getAllBlogPosts();
   const recentPosts = allPosts.slice(0, 2);
 
-  return <PersonalSiteInner recentBlogs={recentPosts} lang="de" setLang={() => {}} />;
+  return <PersonalSiteInner recentBlogs={recentPosts} lang="de" />;
 }
