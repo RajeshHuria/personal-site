@@ -1,8 +1,7 @@
-"use client";
-
 import Link from "next/link";
-import { useLanguage } from "@/app/LanguageProvider";
 import { translations } from "@/lib/translations";
+import { useLanguage } from "@/app/LanguageProvider";
+import LanguageToggle from "./LanguageToggle";
 
 interface BlogPost {
   slug: string;
@@ -95,11 +94,10 @@ function getFocusAreas(lang: string) {
 
 interface PersonalSiteInnerProps extends PersonalSiteProps {
   lang: "en" | "de";
-  setLang?: (lang: "en" | "de") => void;
+  showLanguageToggle?: boolean;
 }
 
-export function PersonalSiteInner({ recentBlogs = [], lang, setLang }: PersonalSiteInnerProps) {
-  const hasSetLang = !!setLang;
+export function PersonalSiteInner({ recentBlogs = [], lang, showLanguageToggle = false }: PersonalSiteInnerProps) {
   const t = translations[lang];
   const projects = getProjects(lang);
   const focusAreas = getFocusAreas(lang);
@@ -150,42 +148,7 @@ export function PersonalSiteInner({ recentBlogs = [], lang, setLang }: PersonalS
             <Link href="/#contact" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               {t.contact}
             </Link>
-            {hasSetLang && setLang && (
-              <div style={{ display: "flex", gap: "0.5rem", marginLeft: "1rem", paddingLeft: "1rem", borderLeft: "1px solid #e2e8f0" }}>
-                <button
-                  onClick={() => setLang("en")}
-                  style={{
-                    padding: "0.25rem 0.5rem",
-                    backgroundColor: lang === "en" ? "#2563eb" : "transparent",
-                    color: lang === "en" ? "#ffffff" : "#475569",
-                    border: "1px solid #cbd5e1",
-                    borderRadius: "0.25rem",
-                    cursor: "pointer",
-                    fontSize: "0.75rem",
-                    fontWeight: "500",
-                    transition: "all 0.3s",
-                  }}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => setLang("de")}
-                  style={{
-                    padding: "0.25rem 0.5rem",
-                    backgroundColor: lang === "de" ? "#2563eb" : "transparent",
-                    color: lang === "de" ? "#ffffff" : "#475569",
-                    border: "1px solid #cbd5e1",
-                    borderRadius: "0.25rem",
-                    cursor: "pointer",
-                    fontSize: "0.75rem",
-                    fontWeight: "500",
-                    transition: "all 0.3s",
-                  }}
-                >
-                  DE
-                </button>
-              </div>
-            )}
+            {showLanguageToggle && <LanguageToggle />}
           </div>
         </nav>
       </header>
@@ -510,7 +473,11 @@ export function PersonalSiteInner({ recentBlogs = [], lang, setLang }: PersonalS
   );
 }
 
-export default function PersonalSite(props: PersonalSiteProps) {
-  const { lang, setLang } = useLanguage();
-  return <PersonalSiteInner {...props} lang={lang} setLang={setLang} />;
+"use client";
+
+function PersonalSiteClient(props: PersonalSiteProps) {
+  const { lang } = useLanguage();
+  return <PersonalSiteInner {...props} lang={lang} showLanguageToggle />;
 }
+
+export default PersonalSiteClient;
