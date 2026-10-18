@@ -1,8 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useLanguage } from "@/app/LanguageProvider";
-import { translations } from "@/lib/translations";
 
 interface BlogPost {
   slug: string;
@@ -16,8 +12,10 @@ interface BlogsPageClientProps {
 }
 
 export default function BlogsPageClient({ posts }: BlogsPageClientProps) {
-  const { lang } = useLanguage();
-  const t = translations[lang];
+  const lang = "en";
+  const backHome = "← Back home";
+  const blogsHeading = "Blogs";
+  const noBlogs = "No blogs yet.";
 
   return (
     <main
@@ -45,7 +43,7 @@ export default function BlogsPageClient({ posts }: BlogsPageClientProps) {
           }}
           className="hover:text-blue-700"
         >
-          {t.backHome}
+          {backHome}
         </Link>
 
         <h1
@@ -57,7 +55,7 @@ export default function BlogsPageClient({ posts }: BlogsPageClientProps) {
             color: "#0f172a",
           }}
         >
-          {t.blogs}
+          {blogsHeading}
         </h1>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
@@ -87,7 +85,7 @@ export default function BlogsPageClient({ posts }: BlogsPageClientProps) {
                   {post.title}
                 </h2>
                 <span style={{ color: "#94a3b8", fontSize: "0.875rem", whiteSpace: "nowrap" }}>
-                  {new Date(post.date).toLocaleDateString(lang === "de" ? "de-DE" : "en-US", {
+                  {new Date(post.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
@@ -99,7 +97,7 @@ export default function BlogsPageClient({ posts }: BlogsPageClientProps) {
         </div>
 
         {posts.length === 0 && (
-          <p style={{ color: "#94a3b8", fontSize: "1rem" }}>{t.noBlogs}</p>
+          <p style={{ color: "#94a3b8", fontSize: "1rem" }}>{noBlogs}</p>
         )}
       </div>
     </main>
