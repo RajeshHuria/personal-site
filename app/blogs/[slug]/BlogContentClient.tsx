@@ -20,13 +20,13 @@ function renderMarkdown(markdown: string) {
   const tokens = marked.lexer(markdown);
   return tokens.map((token, idx) => {
     if (token.type === "heading") {
-      const HeadingTag = `h${token.depth}` as keyof JSX.IntrinsicElements;
+      const headingLevel = `h${token.depth}`;
       const styles = {
         h2: { fontSize: "1.75rem", fontWeight: "700", marginTop: "2rem", marginBottom: "1rem", color: "#0f172a" },
         h3: { fontSize: "1.25rem", fontWeight: "600", marginTop: "1.5rem", marginBottom: "0.75rem", color: "#1e293b" },
         h4: { fontSize: "1.125rem", fontWeight: "600", marginTop: "1.25rem", marginBottom: "0.5rem", color: "#1e293b" },
       } as Record<string, React.CSSProperties>;
-      return React.createElement(HeadingTag, { key: idx, style: styles[`h${token.depth}`] || styles.h2 }, token.text);
+      return React.createElement(headingLevel as any, { key: idx, style: styles[headingLevel] || styles.h2 }, token.text);
     }
     if (token.type === "paragraph") {
       return (
