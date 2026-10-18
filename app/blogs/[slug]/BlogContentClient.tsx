@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { marked } from "marked";
+import React from "react";
 
 interface BlogPost {
   slug: string;
@@ -10,6 +14,53 @@ interface BlogPost {
 interface BlogContentClientProps {
   post: BlogPost;
   backToBlogs: string;
+}
+
+function renderMarkdown(markdown: string) {
+  const tokens = marked.lexer(markdown);
+  return tokens.map((token, idx) => {
+    if (token.type === "heading") {
+      const HeadingTag = `h${token.depth}` as keyof JSX.IntrinsicElements;
+      const styles = {
+        h2: { fontSize: "1.75rem", fontWeight: "700", marginTop: "2rem", marginBottom: "1rem", color: "#0f172a" },
+        h3: { fontSize: "1.25rem", fontWeight: "600", marginTop: "1.5rem", marginBottom: "0.75rem", color: "#1e293b" },
+        h4: { fontSize: "1.125rem", fontWeight: "600", marginTop: "1.25rem", marginBottom: "0.5rem", color: "#1e293b" },
+      } as Record<string, React.CSSProperties>;
+      return React.createElement(HeadingTag, { key: idx, style: styles[`h${token.depth}`] || styles.h2 }, token.text);
+    }
+    if (token.type === "paragraph") {
+      return (
+        <p key={idx} style={{ marginBottom: "1.5rem", color: "#475569", lineHeight: "1.7" }}>
+          {token.text}
+        </p>
+      );
+    }
+    if (token.type === "list") {
+      const ListTag = token.ordered ? "ol" : "ul";
+      return React.createElement(
+        ListTag,
+        { key: idx, style: { marginBottom: "1.5rem", marginLeft: "2rem", color: "#475569", lineHeight: "1.7" } },
+        token.items.map((item, i) =>
+          React.createElement("li", { key: i, style: { marginBottom: "0.5rem" } }, item.text)
+        )
+      );
+    }
+    if (token.type === "code") {
+      return (
+        <pre key={idx} style={{ backgroundColor: "#f1f5f9", padding: "1rem", borderRadius: "0.5rem", overflow: "auto", marginBottom: "1.5rem" }}>
+          <code style={{ color: "#1e293b", fontSize: "0.875rem", fontFamily: "monospace" }}>{token.text}</code>
+        </pre>
+      );
+    }
+    if (token.type === "blockquote") {
+      return (
+        <blockquote key={idx} style={{ borderLeft: "4px solid #2563eb", paddingLeft: "1rem", marginLeft: 0, marginBottom: "1.5rem", color: "#64748b", fontStyle: "italic" }}>
+          {token.text}
+        </blockquote>
+      );
+    }
+    return null;
+  });
 }
 
 export default function BlogContentClient({ post, backToBlogs }: BlogContentClientProps) {
@@ -64,39 +115,8 @@ export default function BlogContentClient({ post, backToBlogs }: BlogContentClie
             })}
           </p>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.5rem",
-              fontSize: "1rem",
-              lineHeight: 1.7,
-              color: "#475569",
-            }}
-          >
-            {post.content.split("\n\n").map((paragraph, idx) => (
-              <p key={idx}>
-                {paragraph.split(/(\bhttps?:\/\/[^\s]+)/g).map((part, i) =>
-                  part.match(/\bhttps?:\/\/[^\s]+/) ? (
-                    <a
-                      key={i}
-                      href={part}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: "#2563eb",
-                        textDecoration: "underline",
-                        transition: "color 0.3s",
-                      }}
-                    >
-                      {part}
-                    </a>
-                  ) : (
-                    part
-                  )
-                )}
-              </p>
-            ))}
+          <div style={{ fontSize: "1rem", color: "#475569" }}>
+            {renderMarkdown(post.content)}
           </div>
         </article>
       </div>
