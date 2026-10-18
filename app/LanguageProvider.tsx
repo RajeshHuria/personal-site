@@ -10,14 +10,30 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+function detectBrowserLanguage(): Language {
+  if (typeof navigator === "undefined") return "de";
+
+  const lang = navigator.language.toLowerCase();
+  const languages = navigator.languages?.map((l) => l.toLowerCase()) || [];
+
+  // Check if any language is German (de-DE, de-AT, de-CH, etc.)
+  const allLangs = [lang, ...languages];
+  const isGerman = allLangs.some((l) => l.startsWith("de"));
+
+  return isGerman ? "de" : "en";
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>("de");
+  const [lang, setLang] = useState<Language>("en");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("language") as Language | null;
     if (stored === "en" || stored === "de") {
       setLang(stored);
+    } else {
+      // Auto-detect based on browser locale
+      setLang(detectBrowserLanguage());
     }
     setMounted(true);
   }, []);
