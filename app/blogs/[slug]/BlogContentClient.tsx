@@ -40,7 +40,7 @@ function renderMarkdown(markdown: string) {
       return React.createElement(
         ListTag,
         { key: idx, style: { marginBottom: "1.5rem", marginLeft: "2rem", color: "#475569", lineHeight: "1.7" } },
-        token.items.map((item, i) =>
+        token.items.map((item: any, i: number) =>
           React.createElement("li", { key: i, style: { marginBottom: "0.5rem" } }, item.text)
         )
       );
