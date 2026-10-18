@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     rajeshHuria: "Rajesh Huria",
-    projects: "PROJECTS",
+    projectsNav: "PROJECTS",
     focus: "FOCUS",
     blogs: "BLOGS",
     contact: "CONTACT",
@@ -47,7 +47,7 @@ export const translations = {
   },
   de: {
     rajeshHuria: "Rajesh Huria",
-    projects: "PROJEKTE",
+    projectsNav: "PROJEKTE",
     focus: "FOKUS",
     blogs: "BLOGS",
     contact: "KONTAKT",

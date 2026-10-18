@@ -134,7 +134,7 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
           </Link>
           <div style={{ display: "flex", gap: "2rem", fontSize: "0.875rem", alignItems: "center" }}>
             <Link href="/#projects" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
-              {t.projects}
+              {t.projectsNav}
             </Link>
             <Link href="/#focus" style={{ color: "#475569", textDecoration: "none", fontWeight: "500", transition: "color 0.3s" }}>
               {t.focus}
