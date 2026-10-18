@@ -33,7 +33,7 @@ const projects = [
 const focusAreas = [
   {
     title: "Release Automation & Governance",
-    description: "Enterprise release process design (ITIL 4 / ISO 20000). Built governance dashboards for data-driven decisions.",
+    description: "Enterprise release process design and governance. Built dashboards for data-driven decisions.",
   },
   {
     title: "AI-Assisted Delivery Operations",
