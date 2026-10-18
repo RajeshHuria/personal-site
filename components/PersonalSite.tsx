@@ -93,8 +93,12 @@ function getFocusAreas(lang: string) {
   ];
 }
 
-export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
-  const { lang, setLang } = useLanguage();
+interface PersonalSiteInnerProps extends PersonalSiteProps {
+  lang: "en" | "de";
+  setLang: (lang: "en" | "de") => void;
+}
+
+export function PersonalSiteInner({ recentBlogs = [], lang, setLang }: PersonalSiteInnerProps) {
   const t = translations[lang];
   const projects = getProjects(lang);
   const focusAreas = getFocusAreas(lang);
@@ -501,4 +505,9 @@ export default function PersonalSite({ recentBlogs = [] }: PersonalSiteProps) {
       </section>
     </div>
   );
+}
+
+export default function PersonalSite(props: PersonalSiteProps) {
+  const { lang, setLang } = useLanguage();
+  return <PersonalSiteInner {...props} lang={lang} setLang={setLang} />;
 }
