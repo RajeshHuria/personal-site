@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { translations } from "@/lib/translations";
-import { useLanguage } from "@/app/LanguageProvider";
 import LanguageToggle from "./LanguageToggle";
 
 interface BlogPost {
@@ -10,7 +9,7 @@ interface BlogPost {
   content: string;
 }
 
-interface PersonalSiteProps {
+export interface PersonalSiteProps {
   recentBlogs?: BlogPost[];
 }
 
@@ -473,11 +472,4 @@ export function PersonalSiteInner({ recentBlogs = [], lang, showLanguageToggle =
   );
 }
 
-"use client";
-
-function PersonalSiteClient(props: PersonalSiteProps) {
-  const { lang } = useLanguage();
-  return <PersonalSiteInner {...props} lang={lang} showLanguageToggle />;
-}
-
-export default PersonalSiteClient;
+export default PersonalSiteInner;
