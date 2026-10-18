@@ -23,18 +23,22 @@ function detectBrowserLanguage(): Language {
   return isGerman ? "de" : "en";
 }
 
+function getInitialLanguage(): Language {
+  if (typeof window === "undefined") return "en";
+
+  const stored = localStorage.getItem("language") as Language | null;
+  if (stored === "en" || stored === "de") {
+    return stored;
+  }
+
+  return detectBrowserLanguage();
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>("en");
+  const [lang, setLang] = useState<Language>(() => getInitialLanguage());
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("language") as Language | null;
-    if (stored === "en" || stored === "de") {
-      setLang(stored);
-    } else {
-      // Auto-detect based on browser locale
-      setLang(detectBrowserLanguage());
-    }
     setMounted(true);
   }, []);
 
