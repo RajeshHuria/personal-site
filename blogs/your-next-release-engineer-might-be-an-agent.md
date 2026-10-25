@@ -14,9 +14,11 @@ This month the vendors started answering with agents of their own.
 
 In July, AWS expanded its DevOps Agent into the delivery pipeline with two preview capabilities, pitched as an "AI-powered release engineer" ([InfoQ](https://www.infoq.com/news/2026/07/aws-devops-ai-agent/)):
 
-### Release Readiness Review checks each change against production requirements, cross-repository dependencies and your engineering standards. Standards can be written in plain English instead of policy-as-code.
+### Release Readiness Review 
+checks each change against production requirements, cross-repository dependencies and your engineering standards. Standards can be written in plain English instead of policy-as-code.
 
-### Autonomous Release Testing writes a test plan per change, covering functional behavior, integration scenarios and regressions, and runs it in production-like environments you provision.
+### Autonomous Release Testing 
+writes a test plan per change, covering functional behavior, integration scenarios and regressions, and runs it in production-like environments you provision.
 
 Results appear in GitHub and GitLab pull requests and in IDEs through Kiro and Claude Code. Engineers still approve changes before production.
 
