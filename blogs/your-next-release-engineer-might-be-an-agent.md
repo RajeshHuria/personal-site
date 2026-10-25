@@ -1,5 +1,5 @@
 ---
-title: "Your Next Release Engineer Might Be an Agent. Here's What It Should Never Decide."
+title: Your Next Release Engineer Might Be an Agent. Here's What It Should Never Decide.
 date: 2026-10-25
 ---
 AI coding tools gave engineering teams more code. They did not give them more shipped software, and the gap now sits in the release process. Faros AI's 2026 report, based on about two years of telemetry from roughly 22,000 developers across more than 4,000 teams, compared each team's two lowest-AI-adoption quarters with its two highest ([Faros AI](https://www.faros.ai/research/ai-acceleration-whiplash)). At high adoption, task throughput per developer rose 33.7%, but deployments per week fell 11.7% and incidents per pull request rose 242.7%. Pull requests were 51% larger, and median time in PR review rose about 5x.
