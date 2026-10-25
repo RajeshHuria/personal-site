@@ -119,6 +119,15 @@ function renderMarkdown(markdown: string) {
         </blockquote>
       );
     }
+    if (token.type === "image") {
+      const imgToken = token as { href: string; title?: string; text: string };
+      return (
+        <figure key={idx} style={{ marginBottom: "1.5rem", marginLeft: 0, marginRight: 0 }}>
+          <img src={imgToken.href} alt={imgToken.text} style={{ width: "100%", borderRadius: "0.5rem", marginBottom: "0.5rem" }} />
+          {imgToken.text && <figcaption style={{ fontSize: "0.875rem", color: "#64748b", fontStyle: "italic", textAlign: "center" }}>{imgToken.text}</figcaption>}
+        </figure>
+      );
+    }
     return null;
   });
 }

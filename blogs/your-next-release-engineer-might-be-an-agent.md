@@ -32,7 +32,7 @@ The promise is not fewer people. It is people spending attention where judgment 
 
 An agent that grades its own team's work needs boundaries. Here is the split I'd defend:
 
-![Who decides what in an AI-assisted release? The agent prepares the brief, the human decides, the pipeline enforces. The agent works before deployment only and never approves a pull request.](agent-human-pipeline.png)
+![Who decides what in an AI-assisted release? The agent prepares the brief, the human decides, the pipeline enforces. The agent works before deployment only and never approves a pull request.](/agent-human-pipeline.png)
 
 The last row is the important one. An agent can recommend, but it should not hold the approval key for its own output.
 
