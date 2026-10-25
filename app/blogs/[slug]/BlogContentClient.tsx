@@ -17,17 +17,54 @@ interface BlogContentClientProps {
 }
 
 function linkifyText(text: string) {
-  const urlRegex = /(\bhttps?:\/\/[^\s]+)/g;
-  const parts = text.split(urlRegex);
-  return parts.map((part, i) =>
-    part.match(/\bhttps?:\/\/[^\s]+/) ? (
-      <a key={i} href={part} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
-        {part}
+  // Handle markdown links [text](url) and raw URLs
+  const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const urlRegex = /(\bhttps?:\/\/[^\s\)]+)/g;
+
+  let result: (string | JSX.Element)[] = [];
+  let lastIndex = 0;
+
+  // First pass: markdown links [text](url)
+  let match;
+  const mdRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const matches: Array<{ start: number; end: number; text: string; url: string }> = [];
+
+  while ((match = mdRegex.exec(text)) !== null) {
+    matches.push({ start: match.index, end: match.index + match[0].length, text: match[1], url: match[2] });
+  }
+
+  if (matches.length === 0) {
+    // No markdown links, process raw URLs
+    const parts = text.split(urlRegex);
+    return parts.map((part, i) =>
+      part.match(/\bhttps?:\/\/[^\s\)]+/) ? (
+        <a key={i} href={part} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
+          {part}
+        </a>
+      ) : (
+        part
+      )
+    );
+  }
+
+  // Process with markdown links
+  matches.forEach((m, i) => {
+    if (m.start > lastIndex) {
+      result.push(text.substring(lastIndex, m.start));
+    }
+    result.push(
+      <a key={`md-${i}`} href={m.url} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
+        {m.text}
       </a>
-    ) : (
-      part
-    )
-  );
+    );
+    lastIndex = m.end;
+  });
+
+  if (lastIndex < text.length) {
+    result.push(text.substring(lastIndex));
+  }
+
+  return result;
 }
 
 function renderMarkdown(markdown: string) {
