@@ -12,7 +12,6 @@ interface BlogsPageClientProps {
 }
 
 export default function BlogsPageClient({ posts }: BlogsPageClientProps) {
-  const lang = "en";
   const backHome = "← Back home";
   const blogsHeading = "Blogs";
   const noBlogs = "No blogs yet.";
