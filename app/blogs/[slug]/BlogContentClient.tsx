@@ -22,7 +22,7 @@ function linkifyText(text: string): (string | React.ReactElement)[] {
   const mdRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
   const urlRegex = /(\bhttps?:\/\/[^\s\)]+)/g;
 
-  let match;
+  let match: RegExpExecArray | null;
   const items: Array<{ type: "image" | "link" | "url"; start: number; end: number; alt?: string; text?: string; url: string }> = [];
 
   // Find all images first
