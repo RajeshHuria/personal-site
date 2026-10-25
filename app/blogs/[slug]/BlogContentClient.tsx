@@ -69,13 +69,23 @@ function renderMarkdown(markdown: string) {
   return tokens.map((token, idx) => {
     if (token.type === "heading") {
       const headingToken = token as { depth: number; text: string };
-      const headingLevel = `h${headingToken.depth}`;
       const styles = {
-        h2: { fontSize: "1.75rem", fontWeight: "700", marginTop: "2rem", marginBottom: "1rem", color: "#0f172a" },
-        h3: { fontSize: "1.25rem", fontWeight: "600", marginTop: "1.5rem", marginBottom: "0.75rem", color: "#1e293b" },
-        h4: { fontSize: "1.125rem", fontWeight: "600", marginTop: "1.25rem", marginBottom: "0.5rem", color: "#1e293b" },
-      } as Record<string, React.CSSProperties>;
-      return React.createElement(headingLevel as keyof JSX.IntrinsicElements, { key: idx, style: styles[headingLevel] || styles.h2 }, headingToken.text);
+        2: { fontSize: "1.75rem", fontWeight: "700", marginTop: "2rem", marginBottom: "1rem", color: "#0f172a" },
+        3: { fontSize: "1.25rem", fontWeight: "600", marginTop: "1.5rem", marginBottom: "0.75rem", color: "#1e293b" },
+        4: { fontSize: "1.125rem", fontWeight: "600", marginTop: "1.25rem", marginBottom: "0.5rem", color: "#1e293b" },
+      } as Record<number, React.CSSProperties>;
+
+      const HeadingComponent = {
+        2: "h2",
+        3: "h3",
+        4: "h4",
+      }[headingToken.depth] || "h2";
+
+      return React.createElement(
+        HeadingComponent as keyof JSX.IntrinsicElements,
+        { key: idx, style: styles[headingToken.depth] || styles[2] },
+        headingToken.text
+      );
     }
     if (token.type === "paragraph") {
       return (
