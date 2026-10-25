@@ -32,9 +32,10 @@ function linkifyText(text: string): (string | React.ReactElement)[] {
 
   // Find all markdown links (but skip if they overlap with images)
   while ((match = mdRegex.exec(text)) !== null) {
-    const overlaps = items.some(item => match.index < item.end && match.index + match[0].length > item.start);
+    const currentMatch = match;
+    const overlaps = items.some(item => currentMatch.index < item.end && currentMatch.index + currentMatch[0].length > item.start);
     if (!overlaps) {
-      items.push({ type: "link", start: match.index, end: match.index + match[0].length, text: match[1], url: match[2] });
+      items.push({ type: "link", start: currentMatch.index, end: currentMatch.index + currentMatch[0].length, text: currentMatch[1], url: currentMatch[2] });
     }
   }
 
