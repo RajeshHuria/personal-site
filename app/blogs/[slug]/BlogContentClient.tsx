@@ -17,18 +17,32 @@ interface BlogContentClientProps {
 }
 
 function linkifyText(text: string): (string | React.ReactElement)[] {
-  // Handle markdown links [text](url) and raw URLs
-  const urlRegex = /(\bhttps?:\/\/[^\s\)]+)/g;
+  // Handle markdown images ![alt](url), markdown links [text](url), and raw URLs
+  const imgRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
   const mdRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-  let match;
-  const matches: Array<{ start: number; end: number; text: string; url: string }> = [];
+  const urlRegex = /(\bhttps?:\/\/[^\s\)]+)/g;
 
-  while ((match = mdRegex.exec(text)) !== null) {
-    matches.push({ start: match.index, end: match.index + match[0].length, text: match[1], url: match[2] });
+  let match;
+  const items: Array<{ type: "image" | "link" | "url"; start: number; end: number; alt?: string; text?: string; url: string }> = [];
+
+  // Find all images first
+  while ((match = imgRegex.exec(text)) !== null) {
+    items.push({ type: "image", start: match.index, end: match.index + match[0].length, alt: match[1], url: match[2] });
   }
 
-  if (matches.length === 0) {
-    // No markdown links, process raw URLs
+  // Find all markdown links (but skip if they overlap with images)
+  while ((match = mdRegex.exec(text)) !== null) {
+    const overlaps = items.some(item => match.index < item.end && match.index + match[0].length > item.start);
+    if (!overlaps) {
+      items.push({ type: "link", start: match.index, end: match.index + match[0].length, text: match[1], url: match[2] });
+    }
+  }
+
+  // Sort by position
+  items.sort((a, b) => a.start - b.start);
+
+  if (items.length === 0) {
+    // No special markdown, process raw URLs
     const parts = text.split(urlRegex);
     return parts.map((part, i) =>
       part.match(/\bhttps?:\/\/[^\s\)]+/) ? (
@@ -41,20 +55,27 @@ function linkifyText(text: string): (string | React.ReactElement)[] {
     );
   }
 
-  // Process with markdown links
+  // Process with images and links
   const result: (string | React.ReactElement)[] = [];
   let lastIndex = 0;
 
-  matches.forEach((m, i) => {
-    if (m.start > lastIndex) {
-      result.push(text.substring(lastIndex, m.start));
+  items.forEach((item, i) => {
+    if (item.start > lastIndex) {
+      result.push(text.substring(lastIndex, item.start));
     }
-    result.push(
-      <a key={`md-${i}`} href={m.url} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
-        {m.text}
-      </a>
-    );
-    lastIndex = m.end;
+
+    if (item.type === "image") {
+      result.push(
+        <img key={`img-${i}`} src={item.url} alt={item.alt} style={{ width: "100%", borderRadius: "0.5rem", marginTop: "1rem", marginBottom: "0.5rem" }} />
+      );
+    } else if (item.type === "link") {
+      result.push(
+        <a key={`link-${i}`} href={item.url} target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "underline" }}>
+          {item.text}
+        </a>
+      );
+    }
+    lastIndex = item.end;
   });
 
   if (lastIndex < text.length) {
