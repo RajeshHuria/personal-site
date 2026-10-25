@@ -82,10 +82,10 @@ function renderMarkdown(markdown: string) {
       }[headingToken.depth] || "h2";
 
       return React.createElement(
-        HeadingComponent as keyof JSX.IntrinsicElements,
+        HeadingComponent,
         { key: idx, style: styles[headingToken.depth] || styles[2] },
         headingToken.text
-      );
+      ) as React.ReactElement;
     }
     if (token.type === "paragraph") {
       return (
