@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useLayoutEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Language } from "@/lib/translations";
 
 interface LanguageContextType {
@@ -36,21 +36,10 @@ function getInitialLanguage(): Language {
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Language>(() => getInitialLanguage());
-  const [mounted, setMounted] = useState(false);
-
-  useLayoutEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("language", lang);
-    }
-  }, [lang, mounted]);
-
-  if (!mounted) {
-    return <>{children}</>;
-  }
+    localStorage.setItem("language", lang);
+  }, [lang]);
 
   return (
     <LanguageContext.Provider value={{ lang, setLang }}>
