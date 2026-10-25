@@ -16,7 +16,7 @@ interface BlogContentClientProps {
   backToBlogs: string;
 }
 
-function linkifyText(text: string) {
+function linkifyText(text: string): (string | React.ReactElement)[] {
   // Handle markdown links [text](url) and raw URLs
   const urlRegex = /(\bhttps?:\/\/[^\s\)]+)/g;
   const mdRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -42,7 +42,7 @@ function linkifyText(text: string) {
   }
 
   // Process with markdown links
-  const result: (string | JSX.Element)[] = [];
+  const result: (string | React.ReactElement)[] = [];
   let lastIndex = 0;
 
   matches.forEach((m, i) => {
