@@ -124,7 +124,11 @@ function renderMarkdown(markdown: string) {
       return (
         <figure key={idx} style={{ marginBottom: "1.5rem", marginLeft: 0, marginRight: 0 }}>
           <img src={imgToken.href} alt={imgToken.text} style={{ width: "100%", borderRadius: "0.5rem", marginBottom: "0.5rem" }} />
-          {imgToken.text && <figcaption style={{ fontSize: "0.875rem", color: "#64748b", fontStyle: "italic", textAlign: "center" }}>{imgToken.text}</figcaption>}
+          {imgToken.text && (
+            <figcaption style={{ fontSize: "0.875rem", color: "#64748b", fontStyle: "italic", textAlign: "center", marginTop: "0.5rem" }}>
+              {imgToken.text}
+            </figcaption>
+          )}
         </figure>
       );
     }
