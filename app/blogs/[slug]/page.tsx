@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getBlogPost, getBlogSlugs } from "@/lib/blog";
 import { notFound } from "next/navigation";
 import BlogContentClient from "./BlogContentClient";

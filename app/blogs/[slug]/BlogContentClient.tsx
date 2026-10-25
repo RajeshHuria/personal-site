@@ -18,15 +18,9 @@ interface BlogContentClientProps {
 
 function linkifyText(text: string) {
   // Handle markdown links [text](url) and raw URLs
-  const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
   const urlRegex = /(\bhttps?:\/\/[^\s\)]+)/g;
-
-  let result: (string | JSX.Element)[] = [];
-  let lastIndex = 0;
-
-  // First pass: markdown links [text](url)
-  let match;
   const mdRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let match;
   const matches: Array<{ start: number; end: number; text: string; url: string }> = [];
 
   while ((match = mdRegex.exec(text)) !== null) {
@@ -48,6 +42,9 @@ function linkifyText(text: string) {
   }
 
   // Process with markdown links
+  const result: (string | JSX.Element)[] = [];
+  let lastIndex = 0;
+
   matches.forEach((m, i) => {
     if (m.start > lastIndex) {
       result.push(text.substring(lastIndex, m.start));
@@ -71,13 +68,14 @@ function renderMarkdown(markdown: string) {
   const tokens = marked.lexer(markdown);
   return tokens.map((token, idx) => {
     if (token.type === "heading") {
-      const headingLevel = `h${token.depth}`;
+      const headingToken = token as { depth: number; text: string };
+      const headingLevel = `h${headingToken.depth}`;
       const styles = {
         h2: { fontSize: "1.75rem", fontWeight: "700", marginTop: "2rem", marginBottom: "1rem", color: "#0f172a" },
         h3: { fontSize: "1.25rem", fontWeight: "600", marginTop: "1.5rem", marginBottom: "0.75rem", color: "#1e293b" },
         h4: { fontSize: "1.125rem", fontWeight: "600", marginTop: "1.25rem", marginBottom: "0.5rem", color: "#1e293b" },
       } as Record<string, React.CSSProperties>;
-      return React.createElement(headingLevel as any, { key: idx, style: styles[headingLevel] || styles.h2 }, token.text);
+      return React.createElement(headingLevel as keyof JSX.IntrinsicElements, { key: idx, style: styles[headingLevel] || styles.h2 }, headingToken.text);
     }
     if (token.type === "paragraph") {
       return (
@@ -87,11 +85,12 @@ function renderMarkdown(markdown: string) {
       );
     }
     if (token.type === "list") {
-      const ListTag = token.ordered ? "ol" : "ul";
+      const listToken = token as { ordered: boolean; items: Array<{ text: string }> };
+      const ListTag = listToken.ordered ? "ol" : "ul";
       return React.createElement(
         ListTag,
         { key: idx, style: { marginBottom: "1.5rem", marginLeft: "2rem", color: "#475569", lineHeight: "1.7" } },
-        token.items.map((item: any, i: number) =>
+        listToken.items.map((item, i) =>
           React.createElement("li", { key: i, style: { marginBottom: "0.5rem" } }, item.text)
         )
       );
